@@ -16,6 +16,8 @@
 \usepackage{booktabs}
 \usepackage{gensymb}
 \usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{chains}
 \graphicspath{ {../tmp/} }
 
 \setlength{\parskip}{1em}
@@ -32,7 +34,9 @@
             \end{center}
             \caption{Histogram obtained after sampling $N=100$ samples.}
         \end{figure}
-
+        Here, since the number of samples is less hence we see a lot deviation between the plotted histogram and the true PDF.\par
+	
+	    \noindent %The next paragraph is not indented
         Histogram obtained after sampling $N=1000$ samples:
         \begin{figure}[H]
             \begin{center}
@@ -48,6 +52,8 @@
             \end{center}
             \caption{Histogram obtained after sampling $N=10000$ samples.}
         \end{figure}
+        We observe that as we increase the number of samples the plotted histogram and the true PDF tend to match. This way we are 
+        guaranteed that the samples were drawn from the same distribution. 
 
     \item Let $U \stackrel{}{\sim} Unif(0, 1)$ and $\Phi(x)$ denote the standard normal CDF. Then, we can show that if $X = \Phi^{-1}(U)$,
     then $X \stackrel{}{\sim} \mathcal{N}(0, 1)$. This is because $P(X \le t) = P(\Phi^{-1}(U) \le t) = P(U \le \Phi(t)) = \Phi(t)$. Now,
@@ -56,9 +62,22 @@
 	\noindent %The next paragraph is not indented
     Let $u$ be a sample from $Unif(0, 1)$. Then using the above fact, we generate samples standard normal random samples as 
     $x =\Phi^{-1}(u)$. Then, to generate normal samples with mean $\mu$ and variance $\sigma^{2}$ we can simply transform as 
-    $y = \sigma x + \mu$, where $y$ is the sample from normal random variable with mean $\mu$ and variance $\sigma^{2}$.
+    $y = \sigma x + \mu$, where $y$ is the sample from normal random variable with mean $\mu$ and variance $\sigma^{2}$.\par
+	
+	\noindent %The next paragraph is not indented
+    The plotted histogram are the samples drawn using the method described above using $\mu=1$ and $\sigma^{2}=1$. The graph also shows
+    the true PDF for the standard normal distribution. Since, the two match, we are guaranteed that the samples were drawn from the
+    standard normal distribution.
 
-    \item \textbf{Idea:} In order to compute the integral numerically, we can represent the integration as an expectation of a random 
+    \begin{figure}[H]
+        \begin{center}
+        \includegraphics[width=8cm]{Q2.png}
+        \end{center}
+        \caption{Histogram obtained after sampling $N=10000$ samples.}
+    \end{figure}
+
+
+    \item In order to compute the integral, we can represent the integration as an expectation of a random 
     variable. Then using Law of Large Numbers, we can compute the expectation, by sampling from the distribution of that random variable.\par
 	
 	\noindent %The next paragraph is not indented
@@ -71,7 +90,14 @@
     \end{cases}
     \end{equation} 
         \begin{enumerate}
-            \item Let $g(X) = \sqrt(sin(X))$, where $X$ is as defined above. Then 
+            \item The graph for $\sqrt(sin(x))$ is plotted as below:
+                \begin{figure}[H]
+                    \begin{center}
+                    \includegraphics[width=8cm]{Q3_1.png}
+                    \end{center}
+                    \caption{Graph for $\sqrt(sin(x))$}
+                \end{figure}
+                Let $g(X) = \sqrt(sin(X))$, where $X$ is as defined above. Then 
                 \begin{equation}
                     \mathbb{E}[g(X)] = \int_{-\infty}^{\infty}g(x)f(x) \,dx =  \frac{1}{\pi}\int_{0}^{\pi}g(x) \,dx
                 \end{equation}
@@ -85,9 +111,133 @@
                 \begin{equation}
                     \int_{0}^{\pi}\sqrt(sin(x)) \,dx =  \pi \left ( \lim_{N\to\infty} \frac{1}{N}\sum_{i=1}^{N}Y_{i} \right )
                 \end{equation}
+                The value of the integral obtained by this method is $2.4061907079036167$.
 
-            \item We can follow the same thing as above but by defining $g(X) = \sqrt(sin(X))exp(-x^{2})$. 
+            \item The graph for $\sqrt(sin(x))exp(-x^{2})$ is plotted as below:
+            \begin{figure}[H]
+                \begin{center}
+                \includegraphics[width=8cm]{Q3_2.png}
+                \end{center}
+                \caption{Graph for $\sqrt(sin(x))exp(-x^{2})$}
+            \end{figure} 
+            
+            We can follow the same thing as above but by defining $g(X) = \sqrt(sin(X))exp(-X^{2})$. The value of the integral
+            obtained by this method is $0.5737398658239544$. \\
         \end{enumerate}
+        \par \par
+	
+	    \noindent %The next paragraph is not indented 
 
+    \item
+        The Markov Chain for the game can be drawn as follows:\par
+	
+	    \noindent %The next paragraph is not indented 
+        \begin{tikzpicture}[
+            mynode/.style={
+            draw,
+            minimum size=1.5em
+            },
+            every loop/.append style={-latex},  
+            start chain=going right  
+            ]
+            \foreach \Value in {0,...,8}
+            \node[mynode,on chain] (s\Value) {${\Value}$};
+            \path[-latex]
+            (s0) edge[bend right] node[auto,swap,font=\small] {$0.167$} (s1)
+            (s0) edge[bend left] node[above,swap,font=\small] {$0.167$} (s2)
+            (s1) edge[bend right] node[auto,swap,font=\small] {$0.167$} (s2)
+            (s1) edge[bend left] node[above,swap,font=\small] {$0.167$} (s3)
+            (s2) edge[bend right] node[auto,swap,font=\small] {$1$} (s4)
+            (s3) edge[bend right] node[above,swap,font=\small] {$0.167$} (s4)
+            (s3) edge[bend left] node[above,swap,font=\small] {$0.167$} (s5)
+            (s4) edge[bend right] node[auto,swap,font=\small] {$1$} (s2)
+            (s5) edge[bend right] node[auto,swap,font=\small] {$0.167$} (s6)
+            (s5) edge[bend left] node[above,swap,font=\small] {$0.167$} (s7)
+            (s6) edge[bend right] node[auto,swap,font=\small] {$0.167$} (s7)
+            (s6) edge[bend left] node[above,swap,font=\small] {$0.167$} (s8)
+            (s7) edge[bend right] node[auto,swap,font=\small] {$0.167$} (s8)
+            (s0) edge[loop left] node[left,font=\small] {$0.667$} (s0)
+            (s1) edge[loop below] node[below,font=\small] {$0.667$} (s1)
+            (s3) edge[loop left] node[below,font=\small] {$0.667$} (s3)
+            (s5) edge[loop below] node[below,font=\small] {$0.667$} (s5)
+            (s6) edge[loop below] node[below,font=\small] {$0.667$} (s6)
+            (s7) edge[loop below] node[below,font=\small] {$0.667$} (s7)
+            (s8) edge[loop right] node[right,font=\small] {$0.667$} (s8);
+        \end{tikzpicture}
+
+        The transition probability matrix can be represented as follows:
+        \begin{equation}
+        \nonumber
+            P = \begin{bmatrix}
+                2/3 & 1/6 & 1/6 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 2/3 & 1/6 & 1/6 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 2/3 & 1/6 & 1/6 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+                0 & 0 & 0 & 0 & 0 & 2/3 & 1/6 & 1/6 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 2/3 & 1/6 & 1/6 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 5/6 & 1/6 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+                \end{bmatrix}
+        \end{equation}
+
+        The initial distribution of states can be represented as follows:
+        \begin{equation}
+        \nonumber
+            \pi_{0} = \begin{bmatrix}
+                       1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+                      \end{bmatrix}
+        \end{equation}
+
+        \textbf{Simulation} \par
+	
+	    \noindent %The next paragraph is not indented
+        We can consider an indicator random variable I such that it takes value of $1$ when the player reaches the end state else it
+        takes the value of $0$. Now, the expectation of this random variable is the probability of the player ever reaching the end state.
+        Using, Law of Large Numbers we can calculate this probability by simulating this Markov Chain (i.e. playing this game) multiple
+        times and calculating the average number of times the player reaches the end state.\par
+	
+	    \noindent %The next paragraph is not indented
+        The question now that arises is that how long should we simulate each game? For this we calculate the value of $\pi_{0}P^{T}$ for
+        large values of T. We observe that the values of $\pi_{0}P^{T}$ for large values of $T$ alternate between $\begin{bmatrix} 0 & 0 & 0.482 & 0 & 0.393 & 0 & 0 &
+        0 & 0.125 \end{bmatrix}$ and \\ $\begin{bmatrix} 0 & 0 & 0.393 & 0 & 0.482 & 0 & 0 & 0 & 0.125 \end{bmatrix}$. We know 
+        from this that in the long run following things happen:
+        \begin{itemize}
+            \item The probability of player being in states 0, 1, 3, 5, 6 and 7 is almost 0.
+            \item The probability of player being in states 2 and 4 alternates between 0.393 and 0.482.
+            \item The probability of player being in state 8 is 0.125.
+        \end{itemize}
+        In other words, in the long run the player can only be in states 2, 4 or 8. Therefore, while simulating the Chain, we need to 
+        only simulate to the point where the player either reaches the state 2 or 4 (then the player cannot reach end state) or the 
+        point where the player reaches the state 5 (because then the player is guaranteed in the long run will reach the end state). \par
+	
+	    \noindent %The next paragraph is not indented
+        On simulating the Chain for 10,000 times the probability of ever reaching the end state is found to be $0.12469$.
+
+        \textbf{Analytic Solution} \par
+	
+	    \noindent %The next paragraph is not indented 
+        Let us consider a random variable $X_{n}$ denoting the state of the player at timestamp $n$. Let $I$ be an indicator random 
+        variable such that it takes value of $1$ when the player reaches the end state else it takes the value of $0$. Now, the 
+        probability of the player ever reaching the end state is sum of probabilities of it reaching the end state at timestamp 
+        $T=5, 6, .... $, where the probability of a player reaching the end state at time $T$ is probability that the player is in state
+        8 at time $T$ but was not in state 8 at $T-1$. We start the sum from 5 because the earliest the player can reach the end state is 
+        at timestamp 5. This can be written down as follows,
+        \begin{equation}
+        \nonumber
+            P(I = 1) = \sum_{t=5}^{\infty} P(X_{t} = 8, X_{t-1} \neq 8) = \sum_{t=5}^{\infty} P\left (X_{t} = 8, \bigcup_{i=0}^{7} (X_{t-1} = i) \right )
+        \end{equation}
+        The last equality holds because if the player is not in state 8 at time $T-1$ implies that the player was in one of the states 
+        from $0$ to $7$. We can 
+        further simplify the above equation as
+        \begin{equation}
+        \nonumber
+        \begin{gathered}
+            P(I = 1) = \sum_{t=5}^{\infty} \sum_{i=0}^{7} P(X_{t} = 8, X_{t-1} = i)\\
+                     = \sum_{t=5}^{\infty} \sum_{i=0}^{7} P(X_{t} = 8 | X_{t-1} = i)P(X_{t-1} = i) \\
+                     = \sum_{t=5}^{\infty} (P(X_{t} = 8 | X_{t-1} = 6)P(X_{t-1} = 6) +  (P(X_{t} = 8 | X_{t-1} = 7)P(X_{t-1} = 7)\\
+        \end{gathered}
+        \end{equation}
+        The equality holds because the transition probabilities $P(X_{t} = 8 | X_{t-1} = i) = 0 \forall i \in {0,1,...,5}$.
 \end{enumerate}
 \end{document}
