@@ -55,7 +55,32 @@
         We observe that as we increase the number of samples the plotted histogram and the true PDF tend to match. This way we are 
         guaranteed that the samples were drawn from the same distribution. 
 
-    \item Let $U \stackrel{}{\sim} Unif(0, 1)$ and $\Phi(x)$ denote the standard normal CDF. Then, we can show that if $X = \Phi^{-1}(U)$,
+    \item \textbf{Solution 1:}
+    Using Central Limit Theorem, we know that if $X_{1}, X_{2}, ..., X_{n}$ are i.i.d. random variable with mean $\mu$ and variance
+    $\sigma^{2}$, then 
+    \begin{equation}
+    \nonumber
+        \sqrt(n) \frac{\bar{X_{n}} - \mu}{\sigma} \xrightarrow[]{n \rightarrow \infty} \mathcal{N}(0, 1)
+    \end{equation}
+    where $\bar{X_{n}}$ is the sample mean. Now, we have samples from uniform distribution between 0 and 1 i.e., $\mu=1/2$ and $\sigma^{2}=1/12$.
+    The sample mean of these samples will be a sample from standard normal distribution. We can generate samples from a normal distribution
+    with mean $\mu$ and $\sigma$, using the transformation $y = \sigma z + \mu$, where z is the sample from standard normal distribution.\par
+	
+	\noindent %The next paragraph is not indented
+    The following histogram plots the samples drawn from normal distribution with $\mu=2$ and $\sigma^{2}=2$ using the method described above. 
+    The graph also shows the true PDF for the normal distribution. Since, the two match, we are guaranteed that the samples were drawn from the
+    normal distribution with $\mu=2$ and $\sigma^{2}=2$.
+    \par
+	
+	\noindent %The next paragraph is not indented
+    \begin{figure}[H]
+        \begin{center}
+        \includegraphics[width=8cm]{Q2_1.png}
+        \end{center}
+        \caption{Histogram obtained after sampling $N=10000$ samples.}
+    \end{figure} 
+    \textbf{Solution 2:}
+    Let $U \stackrel{}{\sim} Unif(0, 1)$ and $\Phi(x)$ denote the standard normal CDF. Then, we can show that if $X = \Phi^{-1}(U)$,
     then $X \stackrel{}{\sim} \mathcal{N}(0, 1)$. This is because $P(X \le t) = P(\Phi^{-1}(U) \le t) = P(U \le \Phi(t)) = \Phi(t)$. Now,
     since the CDF X is $\Phi(x)$, hence, $X \stackrel{}{\sim} \mathcal{N}(0, 1)$. \par
 	
@@ -76,6 +101,9 @@
         \caption{Histogram obtained after sampling $N=10000$ samples.}
     \end{figure}
 
+    \par
+	
+	\noindent %The next paragraph is not indented
 
     \item In order to compute the integral, we can represent the integration as an expectation of a random 
     variable. Then using Law of Large Numbers, we can compute the expectation, by sampling from the distribution of that random variable.\par
@@ -129,6 +157,7 @@
 	    \noindent %The next paragraph is not indented 
 
     \item
+        \textbf{Assumption:} If the die shows up 2 when in the state 7, the player remains in the same state.
         The Markov Chain for the game can be drawn as follows:\par
 	
 	    \noindent %The next paragraph is not indented 
@@ -168,7 +197,7 @@
         The transition probability matrix can be represented as follows:
         \begin{equation}
         \nonumber
-            P = \begin{bmatrix}
+            Q = \begin{bmatrix}
                 2/3 & 1/6 & 1/6 & 0 & 0 & 0 & 0 & 0 & 0 \\
                 0 & 2/3 & 1/6 & 1/6 & 0 & 0 & 0 & 0 & 0 \\
                 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
@@ -198,8 +227,8 @@
         times and calculating the average number of times the player reaches the end state.\par
 	
 	    \noindent %The next paragraph is not indented
-        The question now that arises is that how long should we simulate each game? For this we calculate the value of $\pi_{0}P^{T}$ for
-        large values of T. We observe that the values of $\pi_{0}P^{T}$ for large values of $T$ alternate between $\begin{bmatrix} 0 & 0 & 0.482 & 0 & 0.393 & 0 & 0 &
+        The question now that arises is that how long should we simulate each game? For this we calculate the value of $\pi_{0}Q^{T}$ for
+        large values of T. We observe that the values of $\pi_{0}Q^{T}$ for large values of $T$ alternate between $\begin{bmatrix} 0 & 0 & 0.482 & 0 & 0.393 & 0 & 0 &
         0 & 0.125 \end{bmatrix}$ and \\ $\begin{bmatrix} 0 & 0 & 0.393 & 0 & 0.482 & 0 & 0 & 0 & 0.125 \end{bmatrix}$. We know 
         from this that in the long run following things happen:
         \begin{itemize}
@@ -212,7 +241,7 @@
         point where the player reaches the state 5 (because then the player is guaranteed in the long run will reach the end state). \par
 	
 	    \noindent %The next paragraph is not indented
-        On simulating the Chain for 10,000 times the probability of ever reaching the end state is found to be $0.12469$.
+        On simulating the Chain for 10,000 times the probability of ever reaching the end state is found to be $0.12555$.
 
         \textbf{Analytic Solution} \par
 	
@@ -235,9 +264,22 @@
         \begin{gathered}
             P(I = 1) = \sum_{t=5}^{\infty} \sum_{i=0}^{7} P(X_{t} = 8, X_{t-1} = i)\\
                      = \sum_{t=5}^{\infty} \sum_{i=0}^{7} P(X_{t} = 8 | X_{t-1} = i)P(X_{t-1} = i) \\
-                     = \sum_{t=5}^{\infty} (P(X_{t} = 8 | X_{t-1} = 6)P(X_{t-1} = 6) +  (P(X_{t} = 8 | X_{t-1} = 7)P(X_{t-1} = 7)\\
+                     = \sum_{t=5}^{\infty} (P(X_{t} = 8 | X_{t-1} = 6)P(X_{t-1} = 6) +  P(X_{t} = 8 | X_{t-1} = 7)P(X_{t-1} = 7))\\
         \end{gathered}
         \end{equation}
-        The equality holds because the transition probabilities $P(X_{t} = 8 | X_{t-1} = i) = 0 \forall i \in {0,1,...,5}$.
+        The last equality holds because the transition probabilities $P(X_{t} = 8 | X_{t-1} = i) = 0 \forall i \in {0,1,...,5}$. Now, we
+        know that $P(X_{t-1} = j) = (\pi_{0}Q^{t-1})_{j}$, where $(\cdot)_{j}$ represents the jth element of the matrix. Using this we can
+        simplify the above equation as
+        \begin{equation}
+        \nonumber
+            P(I=1) = \sum_{t=5}^{\infty} \frac{1}{6}((\pi_{0}Q^{T-1})_{6}) + \frac{1}{6}((\pi_{0}Q^{T-1})_{7})
+        \end{equation}
+        Now, we know that $\sum_{t=0}^{\infty} A^{t}$ for any matrix $A$ converges only when the largest eigenvalue of $A < 1$. However,
+        we find that the largest eigenvalue of Q is 1. So, in compute the above sum approximately, we compute it till timestamp $t=10000$ i.e.,
+        \begin{equation}
+        \nonumber
+            P(I=1) \approx \sum_{t=5}^{10000} \frac{1}{6}((\pi_{0}Q^{t-1})_{6}) + \frac{1}{6}((\pi_{0}Q^{t-1})_{7})
+        \end{equation}
+        The probability thus obtained is $0.1249$, which conforms to the probability found earlier using simulation. 
 \end{enumerate}
 \end{document}
