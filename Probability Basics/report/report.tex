@@ -67,9 +67,9 @@
     with mean $\mu$ and $\sigma$, using the transformation $y = \sigma z + \mu$, where z is the sample from standard normal distribution.\par
 	
 	\noindent %The next paragraph is not indented
-    The following histogram plots the samples drawn from normal distribution with $\mu=2$ and $\sigma^{2}=2$ using the method described above. 
+    The following histogram plots the samples drawn from normal distribution with $\mu=2$ and $\sigma=2$ using the method described above. 
     The graph also shows the true PDF for the normal distribution. Since, the two match, we are guaranteed that the samples were drawn from the
-    normal distribution with $\mu=2$ and $\sigma^{2}=2$.
+    normal distribution with $\mu=2$ and $\sigma=2$.
     \par
 	
 	\noindent %The next paragraph is not indented
@@ -85,7 +85,7 @@
     since the CDF X is $\Phi(x)$, hence, $X \stackrel{}{\sim} \mathcal{N}(0, 1)$. \par
 	
 	\noindent %The next paragraph is not indented
-    Let $u$ be a sample from $Unif(0, 1)$. Then using the above fact, we generate samples standard normal random samples as 
+    Let $u$ be a sample from $Unif(0, 1)$. Then using the above fact, we can generate samples from standard normal random samples as 
     $x =\Phi^{-1}(u)$. Then, to generate normal samples with mean $\mu$ and variance $\sigma^{2}$ we can simply transform as 
     $y = \sigma x + \mu$, where $y$ is the sample from normal random variable with mean $\mu$ and variance $\sigma^{2}$.\par
 	
@@ -135,7 +135,7 @@
                     \nonumber
                     \lim_{N\to\infty} \frac{1}{N}\sum_{i=1}^{N}Y_{i} = \mathbb{E}[g(X)]
                 \end{equation}
-                Now,
+                Therefore,
                 \begin{equation}
                     \int_{0}^{\pi}\sqrt(sin(x)) \,dx =  \pi \left ( \lim_{N\to\infty} \frac{1}{N}\sum_{i=1}^{N}Y_{i} \right )
                 \end{equation}
@@ -149,7 +149,7 @@
                 \caption{Graph for $\sqrt(sin(x))exp(-x^{2})$}
             \end{figure} 
             
-            We can follow the same thing as above but by defining $g(X) = \sqrt(sin(X))exp(-X^{2})$. The value of the integral
+            We can follow the same procedure as above but by defining $g(X) = \sqrt(sin(X))exp(-X^{2})$. The value of the integral
             obtained by this method is $0.5737398658239544$. \\
         \end{enumerate}
         \par \par
@@ -190,8 +190,8 @@
             (s3) edge[loop left] node[below,font=\small] {$0.667$} (s3)
             (s5) edge[loop below] node[below,font=\small] {$0.667$} (s5)
             (s6) edge[loop below] node[below,font=\small] {$0.667$} (s6)
-            (s7) edge[loop below] node[below,font=\small] {$0.667$} (s7)
-            (s8) edge[loop right] node[right,font=\small] {$0.667$} (s8);
+            (s7) edge[loop below] node[below,font=\small] {$0.833$} (s7)
+            (s8) edge[loop right] node[right,font=\small] {$1$} (s8);
         \end{tikzpicture}
 
         The transition probability matrix can be represented as follows:
@@ -250,8 +250,8 @@
         variable such that it takes value of $1$ when the player reaches the end state else it takes the value of $0$. Now, the 
         probability of the player ever reaching the end state is sum of probabilities of it reaching the end state at timestamp 
         $T=5, 6, .... $, where the probability of a player reaching the end state at time $T$ is probability that the player is in state
-        8 at time $T$ but was not in state 8 at $T-1$. We start the sum from 5 because the earliest the player can reach the end state is 
-        at timestamp 5. This can be written down as follows,
+        8 at time $T$ but was not in state 8 at $T-1$ since 8 is an absorbing state. We start the sum from 5 because the earliest the player can reach the end state is 
+        at timestamp 5. This can be written down as follows:
         \begin{equation}
         \nonumber
             P(I = 1) = \sum_{t=5}^{\infty} P(X_{t} = 8, X_{t-1} \neq 8) = \sum_{t=5}^{\infty} P\left (X_{t} = 8, \bigcup_{i=0}^{7} (X_{t-1} = i) \right )
@@ -272,7 +272,7 @@
         simplify the above equation as
         \begin{equation}
         \nonumber
-            P(I=1) = \sum_{t=5}^{\infty} \frac{1}{6}((\pi_{0}Q^{T-1})_{6}) + \frac{1}{6}((\pi_{0}Q^{T-1})_{7})
+            P(I=1) = \sum_{t=5}^{\infty} \frac{1}{6}((\pi_{0}Q^{t-1})_{6}) + \frac{1}{6}((\pi_{0}Q^{t-1})_{7})
         \end{equation}
         Now, we know that $\sum_{t=0}^{\infty} A^{t}$ for any matrix $A$ converges only when the largest eigenvalue of $A < 1$. However,
         we find that the largest eigenvalue of Q is 1. So, in compute the above sum approximately, we compute it till timestamp $t=10000$ i.e.,
