@@ -4,8 +4,9 @@ class Distribution:
     '''
         This is an abstract class for probability distributions.
     '''
-    def __init__(self):
-        pass
+    def __init__(self, mean, variance):
+        self.mean = mean
+        self.variance = variance
         
     def posterior_update(self):
         '''

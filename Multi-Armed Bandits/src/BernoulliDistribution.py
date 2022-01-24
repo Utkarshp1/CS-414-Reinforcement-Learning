@@ -1,4 +1,4 @@
-from numpy as np
+import numpy as np
 
 from RewardDistribution import RewardDistribution
 
@@ -14,10 +14,11 @@ class Bernoulli(RewardDistribution):
                     distribution. If not provided, will be initialised
                     randomly using uniform distribution between [0, 1). 
         '''
-        if p:
-            self.p = p
-        else:
-            self._init_params()
+        if p is None:
+            p = self._init_params()
+        
+        super().__init__(p)
+            
         
     def _init_params(self):
         '''
@@ -25,7 +26,7 @@ class Bernoulli(RewardDistribution):
             Bernoulli distribution randomly using uniform distribution
             between [0, 1].
         '''
-        self.p = np.random.uniform(low=0.0, high=1.0)
+        return np.random.uniform(low=0.0, high=1.0)
         
     def sample(self):
-        return np.random.binomial(n=1, p=self.p)
+        return np.random.binomial(n=1, p=self.mean)

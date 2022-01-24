@@ -9,8 +9,8 @@ class RewardDistribution(Distribution):
         a Bernoulli distribution.
     '''
     
-    def __init__(self):
-        self._init_params()
+    def __init__(self, mean, variance=None):
+        super().__init__(mean, variance)
     
     def _init_params(self):
         '''
@@ -32,4 +32,3 @@ class RewardDistribution(Distribution):
             the given reward distribution.
         '''
         raise NotImplementedError
-        
