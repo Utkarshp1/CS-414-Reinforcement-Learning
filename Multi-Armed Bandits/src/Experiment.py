@@ -1,17 +1,20 @@
+import os
+
 import numpy as np
-import matplotlib.pyolot as plt
+from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 from algorithms import Greedy
 from MultiArmedBandit import MultiArmedBandit
 from reward_distributions import Bernoulli
 from utils import create_inverse_schedule
-from metrics import CummulativeRegret
+from metrics import MeanCummulativeRegret
 
 class Experiment:
     '''
     '''
-    def __init__(self, algo_list, exper_name, num_runs=1000, total_time=1000,
-        num_arms=2, reward_dist=Bernoulli, metrics=None):
+    def __init__(self, algo_dict, exper_name, num_runs=1000, total_time=1000,
+        num_arms=2, reward_dist=Bernoulli, metrics=None, random_seed=42):
         '''
             Arguments:
             ---------
@@ -33,6 +36,7 @@ class Experiment:
                 - metrics (list): Metrics to be calculated to compare 
                     the performance of the algorithms. Each element of
                     the list should be of type Metric class.
+                - random_seed (int): NumPy random seed.
         '''
         self.algo_dict = algo_dict
         self.exper_name = exper_name
@@ -41,6 +45,12 @@ class Experiment:
         self.num_arms = num_arms
         self.reward_dist = reward_dist
         self.metrics = metrics
+        self.random_seed = random_seed
+        
+        self._init_params()
+        # self._init_directory()
+        
+        np.random.seed(random_seed)
         
     def _init_params(self):
         '''
@@ -58,18 +68,30 @@ class Experiment:
             self.results[algo_name]["optimal_arm"] = np.empty(
                 (self.num_runs, 1))
             self.results[algo_name]["metrics"] = {}
+            
+    def _init_directory(self):
+        '''
+            This method initialises the directory for saving the results
+            of the experiment.
+        '''
+        try:
+            self.exp_dir = os.path.join("Experiments/", self.exper_name)
+            os.mkdir(self.exp_dir)
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
         
     def simulate(self):
-        for i in range(self.num_runs):
+        for algo_name in self.algo_dict:
             multi_armed_bandit = MultiArmedBandit(
                 self.num_arms, 
                 self.reward_dist
             )
             
-            for algo_name in self.algo_dict:
+            for i in tqdm(range(self.num_runs)):
                 algo, hyperparams = self.algo_dict[algo_name]
                 
-                hyperparams["multi_arm_bandit"] = multi_arm_bandit
+                hyperparams["multi_arm_bandit"] = multi_armed_bandit
                 hyperparams["total_time"] = self.total_time
                 
                 algo = algo(**hyperparams)
@@ -78,30 +100,51 @@ class Experiment:
                 self.results[algo_name]["regrets"][i, :] = algo.regrets
                 self.results[algo_name]["counts"][i, :] = algo.counts
                 self.results[algo_name]["optimal_arm"][i, 0] = (
-                    multi_arm_bandit.optimal_arm) 
+                    multi_armed_bandit.optimal_arm) 
                 
         self._calculate_metrics()
                 
     def _calculate_metrics(self):
         for algo_name in self.results:
             for metric in self.metrics:
-                metric = metric(self.results[algo_name])
-                self.results[algo_name]["metrics"][metric.__name__] = metric()
+                self.results[algo_name]["metrics"][metric.name] = metric(
+                    self.results[algo_name]["regrets"])
                 
     def generate_plots(self):
-        pass 
+        for metric in self.metrics:
+            plt.figure()
+            for algo_name in self.results:
+                plt.plot(self.results[algo_name]["metrics"][metric.name], 
+                    label=algo_name)
+            plt.legend()
+            plt.title(metric.name)
+            plt.xlabel("Time")
+            plt.ylabel("Metric Value")
+            plt.savefig(os.path.join(self.exp_dir, metric + ".png"))
+            plt.show()
             
-            # regrets = 
-        # for i in range(1):
-        # self.regrets = np.empty((1, 100))
-            # print(i)
-            
-            # self.algo = Greedy(self.multi_armed_bandit, total_time=100, eps_schedule=create_inverse_schedule(0.1))
-            # for j in self.multi_armed_bandit.arms:
-                # print(j.mean)
-            # print('-'*10)
-            # self.algo.run()
-            # print(self.algo.act_val_esti)
-            # self.regrets[i, :] = self.algo.regrets
-
+    def generate_report(self):
+        self.generate_plots()
         
+        exp_config = {
+            "exper_name": self.exper_name,
+            "num_runs": self.num_runs,
+            "total_time": self.total_time,
+            "num_arms": self.num_arms,
+            "reward_distribution": self.reward_dist.__class__.__name__,
+            "random_seed": self.random_seed,
+            "algos": []
+        }
+        
+        for algo_name in algo_dict:
+            algo, hyperparams = self.algo_dict[algo_name]
+                
+            hyperparams["multi_arm_bandit"] = multi_armed_bandit
+            hyperparams["total_time"] = self.total_time
+            
+            algo = algo(**hyperparams)
+            
+            exp_config["algos"][algo_name] = algo.get_config()
+            
+        with open(os.path.join(self.exp_dir, "summary.json", "w")) as outfile: 
+            json.dump(exp_config, outfile)        

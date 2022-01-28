@@ -18,12 +18,9 @@ class Metric:
 class MeanCummulativeRegret(Metric):
     '''
     '''
-    def __init__(self, results):
-        self._get_appropriate_quantity(results)
-        
-    def _get_appropriate_quantity(self, results):
-        self.regrets = results["regrets"]
+    def __init__(self):
+        self.name = "Mean Cummulative Regret"
     
     def __call__(self, regrets):
-        cum_sum = np.cumsum(self.regrets, axis=1)
+        cum_sum = np.cumsum(regrets, axis=1)
         return np.mean(cum_sum, axis=0)

@@ -141,7 +141,7 @@ class Greedy(Algorithm):
         
         if self.eps_schedule:
             self.eps = self.eps_schedule(time+1)
-            print(self.eps)
+            # print(self.eps)
         
         
     def _pick_next_arm(self):
