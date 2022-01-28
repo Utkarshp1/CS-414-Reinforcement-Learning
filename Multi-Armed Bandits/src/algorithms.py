@@ -1,5 +1,6 @@
 import numpy as np
 
+from Distribution import Beta
 from utils import running_avg_update, softmax
 
 class Algorithm:
@@ -34,8 +35,10 @@ class Algorithm:
             the algorithm and should return the number of initial runs
             performed. For example, in the UCB algorithm, initially
             each of the arm is picked once.
+            By default, we return 0 that means the algorithm has no 
+            initial runs.
         '''
-        raise NotImplementedError
+        return 0
         
     def _update_params(self, reward, arm_index):
         '''
@@ -69,7 +72,7 @@ class Algorithm:
         '''
             This method returns the hyperparameters for the algorithm.
         '''
-        raise NotImplementedError
+        return {}
             
             
 class Greedy(Algorithm):
@@ -292,9 +295,8 @@ class UCB(Algorithm):
         -----
             - Finite-Time Analysis of the Multiarmed Bandit Problem,
               Auer, Cesa-Bianchi, Fischer. 2002
-            - Algorithms for the multi-armed bandit problem Volodymyr
-              Kuleshov and Doina Precup, Journal of Machine Learning 
-              Research.
+            - Reinforcement Learning: An Introduction, Sutton and Barto
+              2nd Edition, 2018.
     '''
     
     def __init__(self, multi_arm_bandit=None, C=1, C_schedule=None, 
@@ -392,3 +394,88 @@ class UCB(Algorithm):
             params["eps"] = self.C
         
         return params
+        
+class ThompsonSampling(Algorithm):
+    '''
+        This class implements the Thompson Sampling algorithm for the
+        Multi-Armed Bandit problem.
+        
+        Refer:
+        -----
+            - Algorithms for the multi-armed bandit problem Kuleshov and 
+              Precup, Journal of Machine Learning Research.
+    '''
+    
+    def __init__(self, multi_arm_bandit=None, prior_dist=Beta, 
+        total_time=1000):
+        '''
+            Arguments:
+            ---------
+                - multi_arm_bandit (MultiArmedBandit class): Object of
+                    MultiArmedBandit class
+                - total_time (int): Total number of timestamps for which
+                    the algorithm should be run.
+                - prior_dist (Distribution): Should be an instance of 
+                    Distribution class which will be used as a prior 
+                    distribution over the rewards of the arms in the 
+                    Multi-armed Bandit problem. Note: It should be class
+                    rather than instance of the class so that multiple
+                    objects can be created from it.
+        '''
+        
+        super().__init__(multi_arm_bandit, total_time)
+        
+        # print([arm.mean for arm in multi_arm_bandit.arms])
+        
+        self.prior_dist = prior_dist
+        
+        self._init_params()
+        
+    def _init_params(self):
+        '''
+            This method should initialize all the parameters of the
+            algorithm.
+        '''
+        
+        self.posterior = [self.prior_dist() for _ in 
+            range(self.multi_arm_bandit.num_arms)]
+            
+    def _initial_runs(self):
+        '''
+            This method plays all the arm once and returns the number
+            of arms.
+        '''
+        
+        for i in range(self.multi_arm_bandit.num_arms):
+            reward = self.multi_arm_bandit.arms[i].sample()
+            
+            self._update_params(reward, i, i)
+            
+        return self.multi_arm_bandit.num_arms
+        
+    def _update_params(self, reward, arm_index, time):
+        '''
+            This method should update the parameters of the algorithm
+            after each timestamp.
+        '''
+        # print(reward)
+        self.regrets[time] = self.multi_arm_bandit.calculate_regret(
+            reward, arm_index)
+        self.counts[arm_index] += 1
+        
+        # print(arm_index)
+        # print(self.posterior[arm_index].alpha, self.posterior[arm_index].beta)
+        self.posterior[arm_index].posterior_update(reward)
+        # print(self.posterior[arm_index].alpha, self.posterior[arm_index].beta)
+        # print("-"*10)
+        
+    def _pick_next_arm(self):
+        '''
+            This method should return the index of the next arm picked
+            by the algorithm.
+        '''
+        num_arms = self.multi_arm_bandit.num_arms
+        
+        sampled_act_val = np.array([post.sample() for post in self.posterior])
+        # print(sampled_act_val)
+        return np.argmax(sampled_act_val)
