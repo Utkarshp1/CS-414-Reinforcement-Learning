@@ -24,3 +24,18 @@ class MeanCummulativeRegret(Metric):
     def __call__(self, regrets):
         cum_sum = np.cumsum(regrets, axis=1)
         return np.mean(cum_sum, axis=0)
+        
+class PercentOptimalArmPull(Metric):
+    '''
+    '''
+    def __init__(self):
+        self.name = "Percentage Optimal Arm Pulled"
+        
+    def __call__(self, regrets):
+        tmp = np.ones_like(regrets)
+        cum_arm_played = np.cumsum(tmp, axis=1)
+        
+        cum_optimal_arm_played = np.cumsum(
+            (regrets == 0).astype(np.int32), axis=1)
+            
+        return np.mean(cum_optimal_arm_played/cum_arm_played, axis=0)

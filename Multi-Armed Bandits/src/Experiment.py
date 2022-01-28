@@ -82,13 +82,13 @@ class Experiment:
             traceback.print_exc()
         
     def simulate(self):
-        for algo_name in self.algo_dict:
+        for i in tqdm(range(self.num_runs)):
             multi_armed_bandit = MultiArmedBandit(
-                self.num_arms, 
-                self.reward_dist
-            )
-            
-            for i in tqdm(range(self.num_runs)):
+                    self.num_arms, 
+                    self.reward_dist
+                )
+                
+            for algo_name in self.algo_dict:
                 algo, hyperparams = self.algo_dict[algo_name]
                 
                 hyperparams["multi_arm_bandit"] = multi_armed_bandit
@@ -108,7 +108,7 @@ class Experiment:
         for algo_name in self.results:
             for metric in self.metrics:
                 self.results[algo_name]["metrics"][metric.name] = metric(
-                    self.results[algo_name]["regrets"])
+                    self.results[algo_name]["regrets"]).tolist()
                 
     def generate_plots(self):
         for metric in self.metrics:
@@ -120,7 +120,7 @@ class Experiment:
             plt.title(metric.name)
             plt.xlabel("Time")
             plt.ylabel("Metric Value")
-            plt.savefig(os.path.join(self.exp_dir, metric + ".png"))
+            # plt.savefig(os.path.join(self.exp_dir, metric + ".png"))
             plt.show()
             
     def generate_report(self):
