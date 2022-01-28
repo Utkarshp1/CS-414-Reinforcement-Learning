@@ -18,3 +18,12 @@ def create_inverse_schedule(const):
     inverse_schedule.config = {"C": const}
     
     return inverse_schedule
+    
+def softmax(x):
+    '''
+        This function accepts a 1-D NumPy array and calculates 
+        element-wise softmax of the function.
+    '''
+    exp_arr = np.exp(x)
+    return exp_arr/np.sum(exp_arr)
+    
