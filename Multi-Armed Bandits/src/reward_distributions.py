@@ -26,7 +26,7 @@ class RewardDistribution(Distribution):
         '''
         raise NotImplementedError
     
-    def ucb_update(self):
+    def ucb_bonus_term(self):
         '''
             This method implements the UCB uncertainty calculation for
             the given reward distribution.
@@ -61,3 +61,16 @@ class Bernoulli(RewardDistribution):
         
     def sample(self):
         return np.random.binomial(n=1, p=self.mean)
+        
+    def ucb_bonus_term(self, counts):
+        '''
+            This method implements the UCB uncertainty calculation for
+            the given reward distribution.
+            
+            Arguments:
+            ---------
+                - counts (int): Number of times each arm has been 
+                    played. 
+        '''
+        time = np.sum(counts)
+        return np.sqrt(np.log(time)/counts)
