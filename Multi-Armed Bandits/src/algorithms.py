@@ -425,8 +425,6 @@ class ThompsonSampling(Algorithm):
         
         super().__init__(multi_arm_bandit, total_time)
         
-        # print([arm.mean for arm in multi_arm_bandit.arms])
-        
         self.prior_dist = prior_dist
         
         self._init_params()
@@ -458,16 +456,12 @@ class ThompsonSampling(Algorithm):
             This method should update the parameters of the algorithm
             after each timestamp.
         '''
-        # print(reward)
+        
         self.regrets[time] = self.multi_arm_bandit.calculate_regret(
             reward, arm_index)
         self.counts[arm_index] += 1
         
-        # print(arm_index)
-        # print(self.posterior[arm_index].alpha, self.posterior[arm_index].beta)
         self.posterior[arm_index].posterior_update(reward)
-        # print(self.posterior[arm_index].alpha, self.posterior[arm_index].beta)
-        # print("-"*10)
         
     def _pick_next_arm(self):
         '''
@@ -477,5 +471,108 @@ class ThompsonSampling(Algorithm):
         num_arms = self.multi_arm_bandit.num_arms
         
         sampled_act_val = np.array([post.sample() for post in self.posterior])
-        # print(sampled_act_val)
+
         return np.argmax(sampled_act_val)
+        
+class Reinforce(Algorithm):
+    '''
+        This class implements the Reinforce algorithm (Gradient Bandit 
+        Algorithm).
+        
+        Refer:
+        -----
+            - Reinforcement Learning: An Introduction, Sutton and Barto
+              2nd Edition, 2018.
+    '''
+    def __init__(self, multi_arm_bandit=None, lr=0.001,
+        total_time=1000, use_baseline=False, init_theta=None):
+        '''
+            Arguments:
+            ---------
+                - multi_arm_bandit (MultiArmedBandit class): Object of
+                    MultiArmedBandit class
+                - total_time (int): Total number of timestamps for which
+                    the algorithm should be run.
+                - lr (float): The learning rate that should be used for 
+                    performing Stochastic Gradient Ascent.
+                - use_baseline (boolean): Whether the algorithm should 
+                    use baselines or not. If True, then the algorithm
+                    uses average reward uptil that time as the baseline.
+                - init_theta (1D NumPy Array): The initial parameters of
+                    the policy (Should be a 1D NumPy array with number 
+                    of parameters equal to the number of arms). If not
+                    provided then parameters are randomly initialised
+                    using Nomral Distribution with mean = 0 and 
+                    variance = 1.
+                    
+            NOTE: We parametrize our policy using softmax function.
+        '''
+        
+        super().__init__(multi_arm_bandit, total_time)
+        
+        self.lr = lr
+        self.use_baseline = use_baseline
+        self.theta = init_theta
+        
+        self._init_params()
+        
+    def _init_params(self):
+        '''
+            This method should initialize all the parameters of the
+            algorithm.
+        '''
+        
+        self.rewards = np.zeros((self.total_time, ))
+        if not self.theta:
+            self.theta = np.random.randn(self.multi_arm_bandit.num_arms)
+        
+    def _update_params(self, reward, arm_index, time):
+        '''
+            This method should update the parameters of the algorithm
+            after each timestamp.
+            
+            theta = theta + lr*reward*(1-pi_t(arm_index)) for arm_index
+            theta = theta - lr*reward*pi_t(arm_index)
+        '''
+        
+        self.regrets[time] = self.multi_arm_bandit.calculate_regret(
+            reward, arm_index)
+        self.counts[arm_index] += 1
+        self.rewards[time] = reward
+        
+        pi = softmax(self.theta)
+        
+        baseline = np.sum(self.rewards)/(time+1) if self.use_baseline else 0
+        
+        tmp = self.theta[arm_index]
+        self.theta -= self.lr *(reward - baseline)* pi
+        self.theta[arm_index] = (tmp + 
+            self.lr * (reward - baseline)*(1 - pi[arm_index]))
+            
+    def _pick_next_arm(self):
+        '''
+            This method should return the index of the next arm picked
+            by the algorithm.
+        '''
+        
+        num_arms = self.multi_arm_bandit.num_arms
+        pi = softmax(self.theta)
+        
+        return np.random.choice(num_arms, p=pi)
+        
+    def get_config(self):
+        '''
+            This function returns the different hyperparameters 
+            configurations for the algorithm.
+        '''
+        
+        params = {}
+        
+        if self.use_baseline:
+            params["algo_name"] = "Reinforce with Baseline"
+        else:
+            params["algo_name"] = "Reinforce"
+            
+        params["lr"] = self.lr
+        
+        return params
