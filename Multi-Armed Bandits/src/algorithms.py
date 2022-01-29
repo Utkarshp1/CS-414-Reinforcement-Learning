@@ -152,11 +152,14 @@ class Greedy(Algorithm):
             This method should return the index of the next arm picked
             by the algorithm.
         '''
+        # print(self.eps)
         num_arms = self.multi_arm_bandit.num_arms
         greedy_arm = np.argmax(self.act_val_esti)
         
         arm_prob = [self.eps/num_arms]*num_arms
         arm_prob[greedy_arm] += (1 - self.eps)
+        # print(arm_prob)
+        # print('-'*10)
         return np.random.choice(num_arms, p=arm_prob)
         
     def get_config(self):
