@@ -79,7 +79,7 @@ class Normal(RewardDistribution):
     '''
         This class implements the Normal reward distribution.
     '''
-    def __init__(self, mean=None, variance=None):
+    def __init__(self, mean=None, variance=0.1):
         '''
             Arguments:
             ---------
@@ -89,6 +89,7 @@ class Normal(RewardDistribution):
         '''
         if mean is None or variance is None:
             mean, variance = self._init_params(mean, variance)
+        print(variance)
             
         super().__init__(mean, variance)
         
@@ -129,13 +130,8 @@ class Normal(RewardDistribution):
             Refer: Finite-time Analysis of the Multiarmed Bandit 
             Problem, Auer, Cesa-Bianchi and Fischer, 2002.
         '''
-        print(square_reward)
-        print(counts)
-        print(avg_reward)
+
         time = np.sum(counts)
         part1 = (square_reward - counts*(avg_reward**2))/(counts - 1)
-        print(part1)
         part2 = np.log(time - 1)/counts
-        print(part2)
-        print(np.sqrt(16*part1*part2))
         return np.sqrt(16*part1*part2)

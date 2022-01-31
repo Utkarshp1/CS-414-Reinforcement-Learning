@@ -8,7 +8,7 @@ from algorithms import Greedy
 from MultiArmedBandit import MultiArmedBandit
 from reward_distributions import Bernoulli
 from utils import create_inverse_schedule
-from metrics import MeanCummulativeRegret
+from metrics import MeanCummulativeRegret, AverageReward
 
 class Experiment:
     '''
@@ -67,6 +67,8 @@ class Experiment:
                 (self.num_runs, self.num_arms))
             self.results[algo_name]["optimal_arm"] = np.empty(
                 (self.num_runs, 1))
+            self.results[algo_name]["rewards"] = np.empty(
+                (self.num_runs, self.total_time))
             self.results[algo_name]["metrics"] = {}
             
     def _init_directory(self):
@@ -100,18 +102,24 @@ class Experiment:
                 self.results[algo_name]["regrets"][i, :] = algo.regrets
                 self.results[algo_name]["counts"][i, :] = algo.counts
                 self.results[algo_name]["optimal_arm"][i, 0] = (
-                    multi_armed_bandit.optimal_arm) 
+                    multi_armed_bandit.optimal_arm)
+                self.results[algo_name]["rewards"][i, :] = algo.rewards
                 
         self._calculate_metrics()
                 
     def _calculate_metrics(self):
+        avg_reward = AverageReward()
         for algo_name in self.results:
             for metric in self.metrics:
                 self.results[algo_name]["metrics"][metric.name] = metric(
                     self.results[algo_name]["regrets"]).tolist()
+                    
+            self.results[algo_name]["metrics"][avg_reward.name] = (
+                avg_reward(self.results[algo_name]["rewards"]).tolist())
                 
     def generate_plots(self):
-        for metric in self.metrics:
+        avg_reward = AverageReward()
+        for metric in self.metrics + [avg_reward]:
             plt.figure()
             for algo_name in self.results:
                 plt.plot(self.results[algo_name]["metrics"][metric.name], 
@@ -122,6 +130,8 @@ class Experiment:
             plt.ylabel("Metric Value")
             # plt.savefig(os.path.join(self.exp_dir, metric + ".png"))
             plt.show()
+        
+        
             
     def generate_report(self):
         self.generate_plots()

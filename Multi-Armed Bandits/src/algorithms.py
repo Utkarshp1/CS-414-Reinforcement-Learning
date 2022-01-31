@@ -20,6 +20,7 @@ class Algorithm:
         self.multi_arm_bandit = multi_arm_bandit
         self.total_time = total_time
         self.regrets = np.empty((self.total_time, ))
+        self.rewards = np.empty((self.total_time, ))
         self.counts = [0]*self.multi_arm_bandit.num_arms
         
     def _init_params(self):
@@ -135,6 +136,7 @@ class Greedy(Algorithm):
         self.regrets[time] = self.multi_arm_bandit.calculate_regret(
             reward, arm_index)
         self.counts[arm_index] += 1
+        self.rewards[time] = reward
         
         self.act_val_esti[arm_index] = running_avg_update(
             self.act_val_esti[arm_index],
@@ -143,7 +145,7 @@ class Greedy(Algorithm):
         )
         
         if self.eps_schedule:
-            self.eps = self.eps_schedule(time+1)
+            self.eps = np.min(1, self.eps_schedule(time+1))
             # print(self.eps)
         
         
@@ -249,6 +251,7 @@ class SoftmaxPolicy(Algorithm):
         self.regrets[time] = self.multi_arm_bandit.calculate_regret(
             reward, arm_index)
         self.counts[arm_index] += 1
+        self.rewards[time] = reward
         
         self.act_val_esti[arm_index] = running_avg_update(
             self.act_val_esti[arm_index],
@@ -357,6 +360,7 @@ class UCB(Algorithm):
         self.regrets[time] = self.multi_arm_bandit.calculate_regret(
             reward, arm_index)
         self.counts[arm_index] += 1
+        self.rewards[time] = reward
         
         self.act_val_esti[arm_index] = running_avg_update(
             self.act_val_esti[arm_index],
@@ -365,7 +369,7 @@ class UCB(Algorithm):
         )
         
         if self.C_schedule:
-            self.temp = self.C_schedule(time+1)
+            self.C = self.C_schedule(time+1)
             
     def _pick_next_arm(self):
         '''
@@ -463,6 +467,7 @@ class ThompsonSampling(Algorithm):
         self.regrets[time] = self.multi_arm_bandit.calculate_regret(
             reward, arm_index)
         self.counts[arm_index] += 1
+        self.rewards[time] = reward
         
         self.posterior[arm_index].posterior_update(reward)
         
@@ -648,6 +653,7 @@ class UCB1_Normal(Algorithm):
             reward, arm_index)
         self.counts[arm_index] += 1
         self.square_reward[arm_index] += reward**2
+        self.rewards[time] = reward
         
         self.act_val_esti[arm_index] = running_avg_update(
             self.act_val_esti[arm_index],
@@ -656,7 +662,7 @@ class UCB1_Normal(Algorithm):
         )
         
         if self.C_schedule:
-            self.temp = self.C_schedule(time+1)
+            self.C = self.C_schedule(time+1)
             
         self.time += 1
             

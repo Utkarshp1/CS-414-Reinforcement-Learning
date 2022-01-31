@@ -48,3 +48,12 @@ class AverageRegretOverTime(Metric):
         
     def __call__(self, regrets):
         return np.mean(regrets, axis=0)
+        
+class AverageReward(Metric):
+    '''
+    '''
+    def __init__(self):
+        self.name = 'Average Reward over Time'
+        
+    def __call__(self, rewards):
+        return np.mean(rewards, axis=0)
