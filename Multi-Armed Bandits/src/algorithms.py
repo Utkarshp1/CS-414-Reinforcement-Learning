@@ -145,7 +145,7 @@ class Greedy(Algorithm):
         )
         
         if self.eps_schedule:
-            self.eps = np.min(1, self.eps_schedule(time+1))
+            self.eps = np.minimum(1, self.eps_schedule(time+1))
             # print(self.eps)
         
         

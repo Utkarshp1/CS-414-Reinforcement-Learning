@@ -48,7 +48,7 @@ class Experiment:
         self.random_seed = random_seed
         
         self._init_params()
-        # self._init_directory()
+        self._init_directory()
         
         np.random.seed(random_seed)
         
@@ -77,11 +77,11 @@ class Experiment:
             of the experiment.
         '''
         try:
-            self.exp_dir = os.path.join("Experiments/", self.exper_name)
+            self.exp_dir = os.path.join("../Experiments/", self.exper_name)
             os.mkdir(self.exp_dir)
         except Exception as e:
             import traceback
-            traceback.print_exc()
+            # traceback.print_exc()
         
     def simulate(self):
         for i in tqdm(range(self.num_runs)):
@@ -127,8 +127,9 @@ class Experiment:
             plt.legend()
             plt.title(metric.name)
             plt.xlabel("Time")
-            plt.ylabel("Metric Value")
-            # plt.savefig(os.path.join(self.exp_dir, metric + ".png"))
+            plt.ylabel(metric.name)
+            plt.savefig(os.path.join(self.exp_dir, 
+                metric.name.replace(' ', '_') + ".png"))
             plt.show()
         
         
