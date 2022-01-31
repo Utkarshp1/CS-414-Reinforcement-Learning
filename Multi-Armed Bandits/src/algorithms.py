@@ -505,7 +505,7 @@ class Reinforce(Algorithm):
                     the policy (Should be a 1D NumPy array with number 
                     of parameters equal to the number of arms). If not
                     provided then parameters are randomly initialised
-                    using Nomral Distribution with mean = 0 and 
+                    using Normal Distribution with mean = 0 and 
                     variance = 1.
                     
             NOTE: We parametrize our policy using softmax function.
@@ -577,5 +577,126 @@ class Reinforce(Algorithm):
             params["algo_name"] = "Reinforce"
             
         params["lr"] = self.lr
+        
+        return params
+        
+class UCB1_Normal(Algorithm):
+    '''
+        This class implements the UCB algorithm for the Normal reward
+        distribution.
+        
+        Refer:
+        -----
+            Finite-time Analysis of the Multiarmed Bandit Problem, 
+            Auer, Cesa-Bianchi and Fischer, 2002.
+    '''
+    def __init__(self, multi_arm_bandit=None, C=1, C_schedule=None,
+        total_time=1000):
+        '''
+             Arguments:
+            ---------
+                - multi_arm_bandit (MultiArmedBandit class): Object of
+                    MultiArmedBandit class
+                - total_time (int): Total number of timestamps for which
+                    the algorithm should be run.
+                - C (float): The coefficient of the uncertainty (bonus)
+                    term in the UCB algorithm which controls the 
+                    exploration-exploitation tradeoff. For larger values
+                    of C, we explore more whereas for smaller values of
+                    C, we explore less.
+                - C_schedule (function): A function for decreasing the
+                    value of the C over time.
+        '''
+        
+        super().__init__(multi_arm_bandit, total_time)
+        
+        self.C = C
+        self.C_schedule = C_schedule
+        
+        self._init_params()
+        
+    def _init_params(self):
+        '''
+            This method should initialize all the parameters of the
+            algorithm.
+        '''
+        
+        self.act_val_esti = np.zeros((self.multi_arm_bandit.num_arms, ))
+        self.square_reward = np.zeros((self.multi_arm_bandit.num_arms, ))
+        self.time = 0
+        
+    def _initial_runs(self):
+        '''
+            This method plays all the arm once and returns the number
+            of arms.
+        '''
+        
+        for i in range(self.multi_arm_bandit.num_arms):
+            reward = self.multi_arm_bandit.arms[i].sample()
+            
+            self._update_params(reward, i, i)
+            
+        return self.multi_arm_bandit.num_arms
+        
+    def _update_params(self, reward, arm_index, time):
+        '''
+            This method should update the parameters of the algorithm
+            after each timestamp.
+        '''
+        
+        self.regrets[time] = self.multi_arm_bandit.calculate_regret(
+            reward, arm_index)
+        self.counts[arm_index] += 1
+        self.square_reward[arm_index] += reward**2
+        
+        self.act_val_esti[arm_index] = running_avg_update(
+            self.act_val_esti[arm_index],
+            reward,
+            alpha= 1/self.counts[arm_index]
+        )
+        
+        if self.C_schedule:
+            self.temp = self.C_schedule(time+1)
+            
+        self.time += 1
+            
+    def _pick_next_arm(self):
+        '''
+            This method should return the index of the next arm picked
+            by the algorithm.
+        '''
+        
+        is_less_played = self.counts < np.ceil(8*np.log(self.time))
+        if np.any(is_less_played):
+            # print(np.ceil(8*np.log(self.time)))
+            # print(self.counts)
+            # print(np.argmax(is_less_played.astype(np.uint8)))
+            # print('-'*10)
+            return np.argmax(is_less_played.astype(np.uint8))
+        
+        num_arms = self.multi_arm_bandit.num_arms
+        
+        bonus_term = self.multi_arm_bandit.arms[0].ucb_bonus_term(
+            self.act_val_esti, self.square_reward, np.array(self.counts))
+            
+        ucb = self.act_val_esti + self.C*bonus_term
+        return np.argmax(ucb)
+        
+    def get_config(self):
+        '''
+            This function returns the C value if the C used
+            is fixed otherwise it returns the configurations of the 
+            schedule that decreases the C over time.
+        '''
+        params = {}
+        
+        if self.C_schedule:
+            params["algo_name"] = "Variable C-UCB1-Normal"
+            params["schedule"] = {}
+            params["schedule"]["name"] = self.C_schedule.__name__
+            params["schedule"]["config"] = self.C_schedule.config
+        else:
+            params["algo_name"] = "UCB1-Normal"
+            params["eps"] = self.C
         
         return params
