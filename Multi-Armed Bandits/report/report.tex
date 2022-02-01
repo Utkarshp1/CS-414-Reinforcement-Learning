@@ -21,6 +21,11 @@
 \usepackage{booktabs}
 \usepackage{gensymb}
 
+\usepackage{mathbbol}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
 \setlength{\parskip}{1em}
 
 \title{Reinforcement Learning Assignment-2 \\
@@ -43,9 +48,8 @@
 		\min \sum_{n=1}^{T} (v_{*} - q(A_{n}))
 	\end{equation}
 \section{Experiment Setting}
-	We consider Bernoulli and Normal Reward Distributions for our experiments. We sample the expected reward from a uniform distribution between [0, 1] for both the 
-	reward distributions for each of the arm. We assume that the variance $(\sigma^{2})$ of the Normal reward distribution is known and we experiment with $\sigma^{2} = 0.1^{2}$ and
-	$\sigma^{2} = 1^{2}$. \par
+	We consider Bernoulli and Normal reward Distributions for our experiments. We sample the expected reward from a uniform distribution between [0, 1] for both of the  
+	reward distributions for each of the arm. We assume that the variance $(\sigma^{2})$ of the Normal reward distribution is known and we experiment with $\sigma^{2} = 0.1^{2}$. \par
 	
 	\noindent %The next paragraph is not indented
 	For each experiment we run our algorithm for 1000 time steps. This is considered to be a run for an algorithm with a given Bandit problem. In order to compare
@@ -59,13 +63,39 @@
 		\item Average reward as a function of time.
 	\end{itemize}
 	
-	Note that we average these metrics over 1000 runs of the algorithm. 
+	Note that we average these metrics over 1000 runs of the algorithm. In this report we have included only a subset of the plots obtained from different experiment.
+	This is done because most of the experiments repeated the same pattern and therefore, including them would just be repetition. However, we include all the plots
+	where we observe something interesting and draw meaningful conclusions from them. In order to see all the plots visit the \verb|.ipynb| notebook attached along
+	with this report. \par
+	
+	\noindent %The next paragraph is not indented
+	Note that throughout the report wherever we don't mention the schedule to decrease a quantity over time, we refer to the following schedule:
+	\begin{equation}
+		x = \frac{\zeta}{t}
+	\label{default_schedule}
+	\end{equation}
+	where $x$ is the quantity that has to be decreased over time and $\zeta$ is a tunable hyperparameter.
 	
 \section{Notations}
-\begin{equation}
-	x = \frac{\zeta}{t}
-\label{default_schedule}
-\end{equation}
+	Apart from the notations and concepts introduced above, we also use following notations in our report:
+	\begin{itemize}
+		\item $N_{t}(a)$ represents the number of times arm $a$ has been pulled uptil time $t$ (including time $t$).
+		
+		\item $Q_{t}(a)$ represents the estimate of $q(a)$ over time t, which is calculated as follows:
+				\begin{equation}
+				\nonumber
+					Q_{t}(a) = \frac{\sum_{n=1}^{t} \mathbb{1}(A_{t} == a) R_{t}}{\sum_{n=1}^{t} \mathbb{1}(A_{t} == a)}
+				\end{equation}
+				where 1 represents an indicator function. We can also calculate $Q_{t}(a)$ incremently as:
+				\begin{equation}
+				\nonumber
+					Q_{t}(a) = Q_{t-1}(a) + \alpha (R_{t} - Q_{t-1}(a))
+				\end{equation}
+				where $\alpha = \frac{1}{N_{t}(a)}$.
+				
+		\item $\pi_{t}(a)$ represents the probability of picking arm $a$ at time $t$. This is also known as policy.
+	\end{itemize}
+
 \section{Bernoulli Reward Distribution}
 	\subsection{K=2 arm Problem}
 		\subsubsection{Greedy Algorithm}
@@ -108,7 +138,7 @@
 		In this section, we compare the Softmax Policy which is defined as follows:
 		\begin{equation}
 		\nonumber
-			\pi_{t}(a) = \frac{e^{q_{t}(a)/\tau}}{\sum_{i=1}^{K} e^{q_{t}(a_{i})/\tau}}
+			\pi_{t}(a) = \frac{e^{Q_{t}(a)/\tau}}{\sum_{i=1}^{K} e^{Q_{t}(a_{i})/\tau}}
 		\end{equation}
 		where $\tau$ is the temperature hyperparameter. We compare the performance of Softmax Policy for $\tau=0.01$, $\tau=10000$ and variable $\tau$ with 
 		schedule as defined in (\ref{default_schedule}) where $\zeta=10$. We reduce the $\tau$ overtime to control exploration-exploitation tradeoff. The graph for 
@@ -176,7 +206,7 @@
 		
 		\subsubsection{Thompson Sampling}
 		In Thompson Sampling, we maintain a Beta distribution prior over $q_{t}(a)$. We sample a value $Q_{t}(a)$ from this Beta distribution for each arm, i.e.
-		$q_{t}(a) \stackrel{}{\sim} Q_{t}(a)$. Now, we select the arm which has the highest value of $Q_{t}(a)$. The results obtained for this algorithm is as 
+		$Q_{t}(a) \stackrel{}{\sim} q_(a)$. Now, we select the arm which has the highest value of $Q_{t}(a)$. The results obtained for this algorithm is as 
 		follows:
 		
 		\begin{figure}[H]
@@ -426,14 +456,295 @@
 		One thing to note is that we used the same hyperparameters for different number of arms in order to facilitate fair comparison between the performance
 		of the algorithms. The above table and the plots of section \ref{2_bernoulli_comparison}, \ref{5_bernoulli_comparison} and \ref{10_bernoulli_comparison} highlights that the 
 		performance of all the algorithms decreases considerably as the number of arms are increased. However, the relative order of performance between algorithms
-		remain as it is. We observe similar trends for other metrics as well.
+		remain as it is for a given number of arms. We observe similar trends for other metrics as well.
 		
+\section{Normal Reward Distribution}
+	Most of the algorithms remain exactly the same for the normal reward distribution as well. However, UCB and Thompson Sampling change slightly as described below. \\  \par
+	
+	\noindent %The next paragraph is not indented
+	\begin{itemize}
 		
-		\begin{equation}
-		\nonumber
-		\end{equation}
-		
+	
+	\item \textbf{UCB1-Normal}
+	\begin{algorithm}
+		\caption{UCB1-Normal}\label{ucb1_normal}
+		\begin{algorithmic}
+			% \State \textbf{input}: budget $B$, Gaussian prior over $f$, acquisition function $\alpha(\textbf{x})$
+			\For{t=1,2,..,} 
+				\State 1. If there is an arm which has been played less than $\lceil 8 log t \rceil$ times then play this arm.
+				\State 2. Otherwise play arm a that maximizes
+					\begin{equation}
+					\nonumber
+						Q_{t}(a) + C\sqrt{16 \cdot \frac{S_{t}(a) - N_{t}(a)Q_{t}(a)^2}{N_{t}(a) - 1} \cdot \frac{ln(t-1)}{N_{t}(a)}}
+					\end{equation}
+					where $S_{t}(a)$ is the sum of square rewards obtained from arm $a$ and C is a tunable hyperparameter which controls the exploration-exploitation
+					tradeoff. 
+				\State 3. Update $Q_{t}(a)$ and $S_{t}(a)$ with the obtained reward $R_{t}(a)$.
+			\EndFor
+		\end{algorithmic}
+	\end{algorithm}
+	
+	\break \break
+	
+	\noindent %The next paragraph is not indented
+	
+	\item \textbf{Thompson Sampling}\par
+	
+	\noindent %The next paragraph is not indented
+	In case of Normal reward distribution we place a normal prior $\mathcal{N} (\mu_{0}, \sigma_{0}^{2})$ over the mean of the reward distribution i.e. $q(a) \stackrel{}{\sim} 
+	\mathcal{N} (\mu_{0}, \sigma_{0}^{2})$. We assume that the variance of the reward distribution is known to us and hence, we don't put a prior over the 
+	distribution. Let's assume this variance to be $\sigma_{1}^{2}$.  The posterior 
+	update after time step $t$ will be given by
+	\begin{equation}
+	\nonumber
+		q(a) \stackrel{}{\sim} \mathcal{N} (\mu, \sigma^2)
+	\end{equation}
+	where
+	\begin{equation}
+	\nonumber
+	\begin{gathered}
+		\sigma^2 = \left (\frac{1}{\sigma_{0}^{2}} + \frac{N_{t}(a)}{\sigma_{1}^{2}} \right ) ^{-1}  \\
+		\mu = \sigma_{1}^{2} \left ( \frac{\mu_{0}}{\sigma_{0}^{2}} + \frac{N_{t}(a)Q_{t}(a)}{\sigma_{1}^{2}} \right )
+	\end{gathered}
+	\end{equation}
+	
+	Now, we sample a value from this posterior distribution for each of the arm and play the arm which has the highest sampled value. 
+	
+	\end{itemize}
+	\subsection{K=2 arm Problem}
+		We repeat all the experiments as we did for the K=2 Bernoulli reward distribution. We obtain the following the variants of each of the algorithm to be optimal:
 		\begin{itemize}
-			\item
+			\item We found that $\epsilon$-Greedy with $\epsilon=0.01$ and Pure Greedy Algorithm to be performing similar.
+			\item Softmax where $\tau=0.01$ was found to be the optimal one.
+			\item Variable $C$-UCB1-Normal where $C$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Thompson Sampling Algorithm
+			\item Reinforce Algorithm with baseline. This was chosen since we didn't find any considerable difference in the performance of the algorithm with/without
+				baseline.
 		\end{itemize}
+		
+		The following plots compare the performance of each of these algorithms:
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Normal_2_0.01_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Normal_2_0.01_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+
+		\textbf{Observations:}
+		\begin{itemize}
+			\item Most of the patterns are the same as Bernoulli reward distributions. However, if we look at the plots for average regret over time and average 
+			reward over time, we find the graph for UCB1-Normal is initially flat and then has spikes. This can be attributed to the fact the way the UCB1-Normal
+			algorithm is designed. In UCB1-Normal algorithm, we give preference to the arm which has been played less than $\lceil 8 log t \rceil$ times. Therefore,
+			initially in the beginning, we can always find such an arm and we have to play that until that condition is satisfied. This makes the graphs flat in 
+			the beginning. However, one thing to note is that after this point also we are not guaranteed that this condition will never become satisfied again. For
+			example, we may reach to a point where we may not have played the sub-optimal arm for a long time and hence, due to this under-representation of that arm
+			we may have to play that arm again. Due to this reason, we observe spikes in the later parts of our graph.
+		\end{itemize}
+		
+	\subsection{K=5 arm Problem}
+		We repeat all the experiments as we did for the K=2 Bernoulli reward distribution. We obtain the following the variants of each of the algorithm to be optimal:
+		\begin{itemize}
+			\item We found that $\epsilon$-Greedy with $\epsilon=0.01$ and Pure Greedy Algorithm to be performing similar.
+			\item Softmax where $\tau=0.01$ was found to be the optimal one.
+			\item Variable $C$-UCB1-Normal where $C$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Thompson Sampling Algorithm
+			\item Reinforce Algorithm with baseline. This was chosen since we didn't find any considerable difference in the performance of the algorithm with/without
+				baseline.
+		\end{itemize}
+		
+		The following plots compare the performance of each of these algorithms:
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Normal_5_0.01_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Normal_5_0.01_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		Since the graphs follow the same pattern as $K=2$ case we defer our discussion to section \ref{normal_comparison} where we compare the performance of the algorithms for
+		different number of arms.
+		
+	\subsection{K=10 arm Problem}
+		We repeat all the experiments as we did for the K=2 Bernoulli reward distribution. We obtain the following the variants of each of the algorithm to be optimal:
+		\begin{itemize}
+			\item We found that $\epsilon$-Greedy with $\epsilon=0.01$ and Pure Greedy Algorithm to be performing similar.
+			\item Softmax where $\tau=0.01$ was found to be the optimal one.
+			\item Variable $C$-UCB1-Normal where $C$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Thompson Sampling Algorithm
+			\item Reinforce Algorithm with baseline. This was chosen since we didn't find any considerable difference in the performance of the algorithm with/without
+				baseline.
+		\end{itemize}
+		
+		The following plots compare the performance of each of these algorithms:
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Normal_10_0.01_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Normal_10_0.01_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		Since the graphs follow the same pattern as $K=2$ case we defer our discussion to section \ref{normal_comparison} where we compare the performance of the algorithms for
+		different number of arms.
+		
+	\subsection{ Comparison of algorithms for different number of arms}
+		\label{normal_comparison}
+		The following table lists the cummalative regret at the end of 1000 plays averaged over 1000 runs:
+		
+		\begin{table}[H]
+		  \begin{tabular}{lSSSS}
+			\toprule
+			\multirow{1}{*}{\textbf{Algorithms}} &
+			  \multicolumn{1}{c}{\textbf{K=2 Arms}} &
+			  \multicolumn{1}{c}{\textbf{K=5 Arms}} &
+			  \multicolumn{1}{c}{\textbf{K=10 Arms}} \\
+			  % & {\textbf{Learned angle}} & {\textbf{Test Accuracy}} & {\textbf{Learned angle}} & {\textbf{Test Accuracy}} \\
+			  \midrule
+			Greedy & 2.90 & 6.97 & 13.65  \\
+			Softmax with $\tau=0.01$ & 1.48 & 4.57 & 8.80   \\
+			Variable $C$-UCB & 18.79 & 92.72 & 226.73   \\
+			Thompson Sampling & 0.82 & 3.10 & 6.75   \\
+			Reinforce Algorithm (with baseline) & 29.91 & 94.82 & 155.40   \\
+			\bottomrule
+		  \end{tabular}
+		  \caption{Comparison of cummalative regret of different algorithms for different number of arms for 1000 plays averaged over 1000 runs.}
+		\end{table}
+		
+		As we observed with the Bernoulli reward distribution that as we increase the number of arms in the Bandit, the performance of all the algorithm decreases
+		considerably. Similarly, the relative ordering between the performance of the algorithms for a given number of arms remains the same. Note that all the 
+		experiments with different numbers of arms was done using the same hyperparameters which allows for fair comparison between algorithm.
+
+\section{An Interesting Case: Reinforce Algorithm with Baselines}
+	In all the experiments performed above, we didn't find any considerable difference between reinforce algorithm with and without baselines. The reason was that
+	our reward distribution had mean close to 0 and variance was also close to 0.01. We ran an experiment with $K=10$ arm case with normal reward distribution with
+	expected reward picked uniformly at random between [4, 5] and variance was fixed at 1.0. The following graphs were obtained:
+	
+	\begin{figure}[H]
+	\graphicspath{ {../Experiments/Interesting_Reinforce/} }
+	\centering
+	\begin{minipage}{.5\textwidth}
+	  \centering
+	  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+	  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+	  \label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+	  \centering
+	  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+	  \captionof{figure}{Average Regret over Time}
+	  \label{fig:test2}
+	\end{minipage}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\graphicspath{ {../Experiments/Interesting_Reinforce/} }
+	\centering
+	\begin{minipage}{.5\textwidth}
+	  \centering
+	  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
+	  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+	  \label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+	  \centering
+	  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
+	  \captionof{figure}{Average Regret over Time}
+	  \label{fig:test2}
+	\end{minipage}
+	\end{figure}
+	
+	This experiment clearly shows the advantage offered by the reinforce with baseline algorithm over the algorithm without baseline. This boost-up in performance
+	can be attributed to the fact that when we subtract the baseline, we intuitively re-centering our data (rewards) and since stochastic gradient ascent algorithms
+	tend to perform better when the data is centered, hence, the algorithm with baselines is able to adapt to the new reward levels whereas the one without baseline
+	suffers.
+		
+		% \begin{equation}
+		% \nonumber
+		% \end{equation}
+		
+		% \begin{itemize}
+			% \item
+		% \end{itemize}
 \end{document}

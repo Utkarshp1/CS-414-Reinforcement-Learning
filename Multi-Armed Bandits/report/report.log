@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.10.25)  1 FEB 2022 21:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.10.25)  2 FEB 2022 01:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -548,7 +548,89 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 )
 (/usr/share/texlive/texmf-dist/tex/latex/was/gensymb.sty
 Package: gensymb 2003/07/02 v1.0 (WaS)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/jknapltx/mathbbol.sty
+Package: mathbbol 1995/01/01
+\symbbold=\mathgroup6
+)
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks24
+\c@algorithm=\count284
+)
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count285
+\c@ALG@rem=\count286
+\c@ALG@nested=\count287
+\ALG@tlm=\skip62
+\ALG@thistlm=\skip63
+\c@ALG@Lnr=\count288
+\c@ALG@blocknr=\count289
+\c@ALG@storecount=\count290
+\c@ALG@tmpcounter=\count291
+\ALG@tmplength=\skip64
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
 ) (./report.aux
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
+
+LaTeX Warning: Label `fig:test1' multiply defined.
+
+
+LaTeX Warning: Label `fig:test2' multiply defined.
+
 
 LaTeX Warning: Label `fig:test1' multiply defined.
 
@@ -612,18 +694,18 @@ LaTeX Warning: Label `fig:test2' multiply defined.
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -661,17 +743,17 @@ LaTeX Font Info:    ... okay on input line 28.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count284
+\scratchcounter=\count292
 \scratchdimen=\dimen188
 \scratchbox=\box53
-\nofMPsegments=\count285
-\nofMParguments=\count286
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count287
+\nofMPsegments=\count293
+\nofMParguments=\count294
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count295
 \MPscratchDim=\dimen189
-\MPnumerator=\count288
-\makeMPintoPDFobject=\count289
-\everyMPtoPDFconversion=\toks25
+\MPnumerator=\count296
+\makeMPintoPDFobject=\count297
+\everyMPtoPDFconversion=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -735,94 +817,101 @@ Dictionary: translator-basic-dictionary, Language: English
 (/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
 File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 )
-LaTeX Info: Redefining \celsius on input line 28.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 28.
+LaTeX Info: Redefining \celsius on input line 33.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 33.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 28.
-Package gensymb Info: Using \Omega for \ohm on input line 28.
+LaTeX Info: Redefining \ohm on input line 33.
+Package gensymb Info: Using \Omega for \ohm on input line 33.
 
 Package gensymb Warning: Not defining \micro.
 
-\c__siunitx_mathsf_int=\count290
-LaTeX Font Info:    Try loading font information for U+msa on input line 28.
+\c__siunitx_mathsf_int=\count298
+LaTeX Font Info:    Try loading font information for U+msa on input line 33.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 28.
+LaTeX Font Info:    Try loading font information for U+msb on input line 33.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-\c__siunitx_mathtt_int=\count291
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 56.
+LaTeX Font Info:    Try loading font information for U+bbold on input line 33.
+LaTeX Font Info:    No file Ubbold.fd. on input line 33.
 
+
+LaTeX Font Warning: Font shape `U/bbold/m/n' undefined
+(Font)              using `U/cmr/m/n' instead on input line 33.
+
+\c__siunitx_mathtt_int=\count299
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 60.
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 <../Experiments/Bernoulli_2_Greedy/Percentage_Optimal_Arm_Pulled_Over_Time.png,
- id=18, 433.62pt x 289.08pt>
+ id=17, 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_Greedy/Percentage_Optimal_Arm_Pulled_Over_Time
 .png Graphic file (type png)
 <use ../Experiments/Bernoulli_2_Greedy/Percentage_Optimal_Arm_Pulled_Over_Time.
 png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Greedy/Percentage_Optimal_A
-rm_Pulled_Over_Time.png  used on input line 86.
+rm_Pulled_Over_Time.png  used on input line 116.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_2_Greedy/Average_Regret_over_Time.png, id=20, 433.62p
+<../Experiments/Bernoulli_2_Greedy/Average_Regret_over_Time.png, id=19, 433.62p
 t x 289.08pt>
 File: ../Experiments/Bernoulli_2_Greedy/Average_Regret_over_Time.png Graphic fi
 le (type png)
 <use ../Experiments/Bernoulli_2_Greedy/Average_Regret_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Greedy/Average_Regret_over_
-Time.png  used on input line 92.
+Time.png  used on input line 122.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+ [2]
 <../Experiments/Bernoulli_2_Softmax/Percentage_Optimal_Arm_Pulled_Over_Time.png
-, id=21, 433.62pt x 289.08pt>
+, id=25, 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_Softmax/Percentage_Optimal_Arm_Pulled_Over_Tim
 e.png Graphic file (type png)
 <use ../Experiments/Bernoulli_2_Softmax/Percentage_Optimal_Arm_Pulled_Over_Time
 .png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Softmax/Percentage_Optimal_
-Arm_Pulled_Over_Time.png  used on input line 122.
+Arm_Pulled_Over_Time.png  used on input line 152.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_2_Softmax/Average_Regret_over_Time.png, id=22, 433.62
+<../Experiments/Bernoulli_2_Softmax/Average_Regret_over_Time.png, id=26, 433.62
 pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_Softmax/Average_Regret_over_Time.png Graphic f
 ile (type png)
 <use ../Experiments/Bernoulli_2_Softmax/Average_Regret_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Softmax/Average_Regret_over
-_Time.png  used on input line 128.
+_Time.png  used on input line 158.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
- [2 <../Experiments/Bernoulli_2_Greedy/Percentage_Optimal_Arm_Pulled_Over_Time.
-png> <../Experiments/Bernoulli_2_Greedy/Average_Regret_over_Time.png>]
+ [3 <../Experiments/Bernoulli_2_Greedy/Percentage_Optimal_Arm_Pulled_Over_Time.
+png> <../Experiments/Bernoulli_2_Greedy/Average_Regret_over_Time.png> <../Exper
+iments/Bernoulli_2_Softmax/Percentage_Optimal_Arm_Pulled_Over_Time.png> <../Exp
+eriments/Bernoulli_2_Softmax/Average_Regret_over_Time.png>]
 <../Experiments/Bernoulli_2_UCB/Percentage_Optimal_Arm_Pulled_Over_Time.png, id
-=29, 433.62pt x 289.08pt>
+=34, 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_UCB/Percentage_Optimal_Arm_Pulled_Over_Time.pn
 g Graphic file (type png)
 <use ../Experiments/Bernoulli_2_UCB/Percentage_Optimal_Arm_Pulled_Over_Time.png
 >
 Package pdftex.def Info: ../Experiments/Bernoulli_2_UCB/Percentage_Optimal_Arm_
-Pulled_Over_Time.png  used on input line 159.
+Pulled_Over_Time.png  used on input line 189.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_2_UCB/Average_Regret_over_Time.png, id=30, 433.62pt x
+<../Experiments/Bernoulli_2_UCB/Average_Regret_over_Time.png, id=35, 433.62pt x
  289.08pt>
 File: ../Experiments/Bernoulli_2_UCB/Average_Regret_over_Time.png Graphic file 
 (type png)
 <use ../Experiments/Bernoulli_2_UCB/Average_Regret_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_UCB/Average_Regret_over_Tim
-e.png  used on input line 165.
+e.png  used on input line 195.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
- [3 <../Experiments/Bernoulli_2_Softmax/Percentage_Optimal_Arm_Pulled_Over_Time
-.png> <../Experiments/Bernoulli_2_Softmax/Average_Regret_over_Time.png>]
 <../Experiments/Bernoulli_2_Thompson_Sampling/Percentage_Optimal_Arm_Pulled_Ove
 r_Time.png, id=36, 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_Thompson_Sampling/Percentage_Optimal_Arm_Pulle
@@ -830,7 +919,7 @@ d_Over_Time.png Graphic file (type png)
 <use ../Experiments/Bernoulli_2_Thompson_Sampling/Percentage_Optimal_Arm_Pulled
 _Over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Thompson_Sampling/Percentag
-e_Optimal_Arm_Pulled_Over_Time.png  used on input line 187.
+e_Optimal_Arm_Pulled_Over_Time.png  used on input line 217.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
 <../Experiments/Bernoulli_2_Thompson_Sampling/Average_Regret_over_Time.png, id=
 37, 433.62pt x 289.08pt>
@@ -839,55 +928,56 @@ File: ../Experiments/Bernoulli_2_Thompson_Sampling/Average_Regret_over_Time.png
 <use ../Experiments/Bernoulli_2_Thompson_Sampling/Average_Regret_over_Time.png>
 
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Thompson_Sampling/Average_R
-egret_over_Time.png  used on input line 193.
+egret_over_Time.png  used on input line 223.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
  [4 <../Experiments/Bernoulli_2_UCB/Percentage_Optimal_Arm_Pulled_Over_Time.png
-> <../Experiments/Bernoulli_2_UCB/Average_Regret_over_Time.png> <../Experiments
-/Bernoulli_2_Thompson_Sampling/Percentage_Optimal_Arm_Pulled_Over_Time.png> <..
-/Experiments/Bernoulli_2_Thompson_Sampling/Average_Regret_over_Time.png>]
+> <../Experiments/Bernoulli_2_UCB/Average_Regret_over_Time.png>]
 <../Experiments/Bernoulli_2_Reinforce/Percentage_Optimal_Arm_Pulled_Over_Time.p
-ng, id=45, 433.62pt x 289.08pt>
+ng, id=43, 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_Reinforce/Percentage_Optimal_Arm_Pulled_Over_T
 ime.png Graphic file (type png)
 <use ../Experiments/Bernoulli_2_Reinforce/Percentage_Optimal_Arm_Pulled_Over_Ti
 me.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Reinforce/Percentage_Optima
-l_Arm_Pulled_Over_Time.png  used on input line 222.
+l_Arm_Pulled_Over_Time.png  used on input line 252.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_2_Reinforce/Average_Regret_over_Time.png, id=46, 433.
+<../Experiments/Bernoulli_2_Reinforce/Average_Regret_over_Time.png, id=44, 433.
 62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_Reinforce/Average_Regret_over_Time.png Graphic
  file (type png)
 <use ../Experiments/Bernoulli_2_Reinforce/Average_Regret_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_Reinforce/Average_Regret_ov
-er_Time.png  used on input line 228.
+er_Time.png  used on input line 258.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+ [5 <../Experiments/Bernoulli_2_Thompson_Sampling/Percentage_Optimal_Arm_Pulled
+_Over_Time.png> <../Experiments/Bernoulli_2_Thompson_Sampling/Average_Regret_ov
+er_Time.png> <../Experiments/Bernoulli_2_Reinforce/Percentage_Optimal_Arm_Pulle
+d_Over_Time.png> <../Experiments/Bernoulli_2_Reinforce/Average_Regret_over_Time
+.png>]
 <../Experiments/Bernoulli_2_All/Percentage_Optimal_Arm_Pulled_Over_Time.png, id
-=47, 433.62pt x 289.08pt>
+=52, 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_All/Percentage_Optimal_Arm_Pulled_Over_Time.pn
 g Graphic file (type png)
 <use ../Experiments/Bernoulli_2_All/Percentage_Optimal_Arm_Pulled_Over_Time.png
 >
 Package pdftex.def Info: ../Experiments/Bernoulli_2_All/Percentage_Optimal_Arm_
-Pulled_Over_Time.png  used on input line 258.
+Pulled_Over_Time.png  used on input line 288.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_2_All/Average_Regret_over_Time.png, id=48, 433.62pt x
+<../Experiments/Bernoulli_2_All/Average_Regret_over_Time.png, id=53, 433.62pt x
  289.08pt>
 File: ../Experiments/Bernoulli_2_All/Average_Regret_over_Time.png Graphic file 
 (type png)
 <use ../Experiments/Bernoulli_2_All/Average_Regret_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_All/Average_Regret_over_Tim
-e.png  used on input line 264.
+e.png  used on input line 294.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
- [5 <../Experiments/Bernoulli_2_Reinforce/Percentage_Optimal_Arm_Pulled_Over_Ti
-me.png> <../Experiments/Bernoulli_2_Reinforce/Average_Regret_over_Time.png>]
 <../Experiments/Bernoulli_2_All/Mean_Cummulative_Regret_Over_Time.png, id=54, 4
 33.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_2_All/Mean_Cummulative_Regret_Over_Time.png Grap
 hic file (type png)
 <use ../Experiments/Bernoulli_2_All/Mean_Cummulative_Regret_Over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_All/Mean_Cummulative_Regret
-_Over_Time.png  used on input line 275.
+_Over_Time.png  used on input line 305.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
 <../Experiments/Bernoulli_2_All/Average_Reward_over_Time.png, id=55, 433.62pt x
  289.08pt>
@@ -895,7 +985,7 @@ File: ../Experiments/Bernoulli_2_All/Average_Reward_over_Time.png Graphic file
 (type png)
 <use ../Experiments/Bernoulli_2_All/Average_Reward_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_2_All/Average_Reward_over_Tim
-e.png  used on input line 281.
+e.png  used on input line 311.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
  [6 <../Experiments/Bernoulli_2_All/Percentage_Optimal_Arm_Pulled_Over_Time.png
 > <../Experiments/Bernoulli_2_All/Average_Regret_over_Time.png> <../Experiments
@@ -908,7 +998,7 @@ g Graphic file (type png)
 <use ../Experiments/Bernoulli_5_All/Percentage_Optimal_Arm_Pulled_Over_Time.png
 >
 Package pdftex.def Info: ../Experiments/Bernoulli_5_All/Percentage_Optimal_Arm_
-Pulled_Over_Time.png  used on input line 319.
+Pulled_Over_Time.png  used on input line 349.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
 <../Experiments/Bernoulli_5_All/Average_Regret_over_Time.png, id=64, 433.62pt x
  289.08pt>
@@ -916,7 +1006,7 @@ File: ../Experiments/Bernoulli_5_All/Average_Regret_over_Time.png Graphic file
 (type png)
 <use ../Experiments/Bernoulli_5_All/Average_Regret_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_5_All/Average_Regret_over_Tim
-e.png  used on input line 325.
+e.png  used on input line 355.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
 <../Experiments/Bernoulli_5_All/Mean_Cummulative_Regret_Over_Time.png, id=65, 4
 33.62pt x 289.08pt>
@@ -924,7 +1014,7 @@ File: ../Experiments/Bernoulli_5_All/Mean_Cummulative_Regret_Over_Time.png Grap
 hic file (type png)
 <use ../Experiments/Bernoulli_5_All/Mean_Cummulative_Regret_Over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_5_All/Mean_Cummulative_Regret
-_Over_Time.png  used on input line 336.
+_Over_Time.png  used on input line 366.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
 <../Experiments/Bernoulli_5_All/Average_Reward_over_Time.png, id=66, 433.62pt x
  289.08pt>
@@ -932,61 +1022,219 @@ File: ../Experiments/Bernoulli_5_All/Average_Reward_over_Time.png Graphic file
 (type png)
 <use ../Experiments/Bernoulli_5_All/Average_Reward_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_5_All/Average_Reward_over_Tim
-e.png  used on input line 342.
+e.png  used on input line 372.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
  [7 <../Experiments/Bernoulli_5_All/Percentage_Optimal_Arm_Pulled_Over_Time.png
-> <../Experiments/Bernoulli_5_All/Average_Regret_over_Time.png> <../Experiments
-/Bernoulli_5_All/Mean_Cummulative_Regret_Over_Time.png> <../Experiments/Bernoul
-li_5_All/Average_Reward_over_Time.png>]
+> <../Experiments/Bernoulli_5_All/Average_Regret_over_Time.png>]
 <../Experiments/Bernoulli_10_All/Percentage_Optimal_Arm_Pulled_Over_Time.png, i
-d=75, 433.62pt x 289.08pt>
+d=73, 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_10_All/Percentage_Optimal_Arm_Pulled_Over_Time.p
 ng Graphic file (type png)
 <use ../Experiments/Bernoulli_10_All/Percentage_Optimal_Arm_Pulled_Over_Time.pn
 g>
 Package pdftex.def Info: ../Experiments/Bernoulli_10_All/Percentage_Optimal_Arm
-_Pulled_Over_Time.png  used on input line 371.
+_Pulled_Over_Time.png  used on input line 401.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_10_All/Average_Regret_over_Time.png, id=76, 433.62pt 
+<../Experiments/Bernoulli_10_All/Average_Regret_over_Time.png, id=74, 433.62pt 
 x 289.08pt>
 File: ../Experiments/Bernoulli_10_All/Average_Regret_over_Time.png Graphic file
  (type png)
 <use ../Experiments/Bernoulli_10_All/Average_Regret_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_10_All/Average_Regret_over_Ti
-me.png  used on input line 377.
+me.png  used on input line 407.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_10_All/Mean_Cummulative_Regret_Over_Time.png, id=77, 
+<../Experiments/Bernoulli_10_All/Mean_Cummulative_Regret_Over_Time.png, id=75, 
 433.62pt x 289.08pt>
 File: ../Experiments/Bernoulli_10_All/Mean_Cummulative_Regret_Over_Time.png Gra
 phic file (type png)
 <use ../Experiments/Bernoulli_10_All/Mean_Cummulative_Regret_Over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_10_All/Mean_Cummulative_Regre
-t_Over_Time.png  used on input line 388.
+t_Over_Time.png  used on input line 418.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Bernoulli_10_All/Average_Reward_over_Time.png, id=78, 433.62pt 
+<../Experiments/Bernoulli_10_All/Average_Reward_over_Time.png, id=76, 433.62pt 
 x 289.08pt>
 File: ../Experiments/Bernoulli_10_All/Average_Reward_over_Time.png Graphic file
  (type png)
 <use ../Experiments/Bernoulli_10_All/Average_Reward_over_Time.png>
 Package pdftex.def Info: ../Experiments/Bernoulli_10_All/Average_Reward_over_Ti
-me.png  used on input line 394.
+me.png  used on input line 424.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
- [8 <../Experiments/Bernoulli_10_All/Percentage_Optimal_Arm_Pulled_Over_Time.pn
-g> <../Experiments/Bernoulli_10_All/Average_Regret_over_Time.png> <../Experimen
-ts/Bernoulli_10_All/Mean_Cummulative_Regret_Over_Time.png> <../Experiments/Bern
-oulli_10_All/Average_Reward_over_Time.png>] [9] (./report.aux)
+ [8 <../Experiments/Bernoulli_5_All/Mean_Cummulative_Regret_Over_Time.png> <../
+Experiments/Bernoulli_5_All/Average_Reward_over_Time.png> <../Experiments/Berno
+ulli_10_All/Percentage_Optimal_Arm_Pulled_Over_Time.png> <../Experiments/Bernou
+lli_10_All/Average_Regret_over_Time.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 462--462
+
+ []
+
+[9 <../Experiments/Bernoulli_10_All/Mean_Cummulative_Regret_Over_Time.png> <../
+Experiments/Bernoulli_10_All/Average_Reward_over_Time.png>]
+<../Experiments/Normal_2_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.png, 
+id=89, 433.62pt x 289.08pt>
+File: ../Experiments/Normal_2_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.
+png Graphic file (type png)
+<use ../Experiments/Normal_2_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.p
+ng>
+Package pdftex.def Info: ../Experiments/Normal_2_0.01_All/Percentage_Optimal_Ar
+m_Pulled_Over_Time.png  used on input line 532.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_2_0.01_All/Average_Regret_over_Time.png, id=90, 433.62pt
+ x 289.08pt>
+File: ../Experiments/Normal_2_0.01_All/Average_Regret_over_Time.png Graphic fil
+e (type png)
+<use ../Experiments/Normal_2_0.01_All/Average_Regret_over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_2_0.01_All/Average_Regret_over_T
+ime.png  used on input line 538.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+ [10]
+<../Experiments/Normal_2_0.01_All/Mean_Cummulative_Regret_Over_Time.png, id=94,
+ 433.62pt x 289.08pt>
+File: ../Experiments/Normal_2_0.01_All/Mean_Cummulative_Regret_Over_Time.png Gr
+aphic file (type png)
+<use ../Experiments/Normal_2_0.01_All/Mean_Cummulative_Regret_Over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_2_0.01_All/Mean_Cummulative_Regr
+et_Over_Time.png  used on input line 549.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_2_0.01_All/Average_Reward_over_Time.png, id=95, 433.62pt
+ x 289.08pt>
+File: ../Experiments/Normal_2_0.01_All/Average_Reward_over_Time.png Graphic fil
+e (type png)
+<use ../Experiments/Normal_2_0.01_All/Average_Reward_over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_2_0.01_All/Average_Reward_over_T
+ime.png  used on input line 555.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+ [11 <../Experiments/Normal_2_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.
+png> <../Experiments/Normal_2_0.01_All/Average_Regret_over_Time.png> <../Experi
+ments/Normal_2_0.01_All/Mean_Cummulative_Regret_Over_Time.png> <../Experiments/
+Normal_2_0.01_All/Average_Reward_over_Time.png>]
+<../Experiments/Normal_5_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.png, 
+id=103, 433.62pt x 289.08pt>
+File: ../Experiments/Normal_5_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.
+png Graphic file (type png)
+<use ../Experiments/Normal_5_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.p
+ng>
+Package pdftex.def Info: ../Experiments/Normal_5_0.01_All/Percentage_Optimal_Ar
+m_Pulled_Over_Time.png  used on input line 590.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_5_0.01_All/Average_Regret_over_Time.png, id=104, 433.62p
+t x 289.08pt>
+File: ../Experiments/Normal_5_0.01_All/Average_Regret_over_Time.png Graphic fil
+e (type png)
+<use ../Experiments/Normal_5_0.01_All/Average_Regret_over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_5_0.01_All/Average_Regret_over_T
+ime.png  used on input line 596.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_5_0.01_All/Mean_Cummulative_Regret_Over_Time.png, id=105
+, 433.62pt x 289.08pt>
+File: ../Experiments/Normal_5_0.01_All/Mean_Cummulative_Regret_Over_Time.png Gr
+aphic file (type png)
+<use ../Experiments/Normal_5_0.01_All/Mean_Cummulative_Regret_Over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_5_0.01_All/Mean_Cummulative_Regr
+et_Over_Time.png  used on input line 607.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_5_0.01_All/Average_Reward_over_Time.png, id=106, 433.62p
+t x 289.08pt>
+File: ../Experiments/Normal_5_0.01_All/Average_Reward_over_Time.png Graphic fil
+e (type png)
+<use ../Experiments/Normal_5_0.01_All/Average_Reward_over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_5_0.01_All/Average_Reward_over_T
+ime.png  used on input line 613.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+ [12 <../Experiments/Normal_5_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.
+png> <../Experiments/Normal_5_0.01_All/Average_Regret_over_Time.png> <../Experi
+ments/Normal_5_0.01_All/Mean_Cummulative_Regret_Over_Time.png> <../Experiments/
+Normal_5_0.01_All/Average_Reward_over_Time.png>]
+<../Experiments/Normal_10_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.png,
+ id=114, 433.62pt x 289.08pt>
+File: ../Experiments/Normal_10_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time
+.png Graphic file (type png)
+<use ../Experiments/Normal_10_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time.
+png>
+Package pdftex.def Info: ../Experiments/Normal_10_0.01_All/Percentage_Optimal_A
+rm_Pulled_Over_Time.png  used on input line 640.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_10_0.01_All/Average_Regret_over_Time.png, id=115, 433.62
+pt x 289.08pt>
+File: ../Experiments/Normal_10_0.01_All/Average_Regret_over_Time.png Graphic fi
+le (type png)
+<use ../Experiments/Normal_10_0.01_All/Average_Regret_over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_10_0.01_All/Average_Regret_over_
+Time.png  used on input line 646.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_10_0.01_All/Mean_Cummulative_Regret_Over_Time.png, id=11
+6, 433.62pt x 289.08pt>
+File: ../Experiments/Normal_10_0.01_All/Mean_Cummulative_Regret_Over_Time.png G
+raphic file (type png)
+<use ../Experiments/Normal_10_0.01_All/Mean_Cummulative_Regret_Over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_10_0.01_All/Mean_Cummulative_Reg
+ret_Over_Time.png  used on input line 657.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Normal_10_0.01_All/Average_Reward_over_Time.png, id=117, 433.62
+pt x 289.08pt>
+File: ../Experiments/Normal_10_0.01_All/Average_Reward_over_Time.png Graphic fi
+le (type png)
+<use ../Experiments/Normal_10_0.01_All/Average_Reward_over_Time.png>
+Package pdftex.def Info: ../Experiments/Normal_10_0.01_All/Average_Reward_over_
+Time.png  used on input line 663.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+ [13 <../Experiments/Normal_10_0.01_All/Percentage_Optimal_Arm_Pulled_Over_Time
+.png> <../Experiments/Normal_10_0.01_All/Average_Regret_over_Time.png> <../Expe
+riments/Normal_10_0.01_All/Mean_Cummulative_Regret_Over_Time.png> <../Experimen
+ts/Normal_10_0.01_All/Average_Reward_over_Time.png>]
+<../Experiments/Interesting_Reinforce/Percentage_Optimal_Arm_Pulled_Over_Time.p
+ng, id=126, 433.62pt x 289.08pt>
+File: ../Experiments/Interesting_Reinforce/Percentage_Optimal_Arm_Pulled_Over_T
+ime.png Graphic file (type png)
+<use ../Experiments/Interesting_Reinforce/Percentage_Optimal_Arm_Pulled_Over_Ti
+me.png>
+Package pdftex.def Info: ../Experiments/Interesting_Reinforce/Percentage_Optima
+l_Arm_Pulled_Over_Time.png  used on input line 709.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Interesting_Reinforce/Average_Regret_over_Time.png, id=127, 433
+.62pt x 289.08pt>
+File: ../Experiments/Interesting_Reinforce/Average_Regret_over_Time.png Graphic
+ file (type png)
+<use ../Experiments/Interesting_Reinforce/Average_Regret_over_Time.png>
+Package pdftex.def Info: ../Experiments/Interesting_Reinforce/Average_Regret_ov
+er_Time.png  used on input line 715.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Interesting_Reinforce/Mean_Cummulative_Regret_Over_Time.png, id
+=128, 433.62pt x 289.08pt>
+File: ../Experiments/Interesting_Reinforce/Mean_Cummulative_Regret_Over_Time.pn
+g Graphic file (type png)
+<use ../Experiments/Interesting_Reinforce/Mean_Cummulative_Regret_Over_Time.png
+>
+Package pdftex.def Info: ../Experiments/Interesting_Reinforce/Mean_Cummulative_
+Regret_Over_Time.png  used on input line 726.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Interesting_Reinforce/Average_Reward_over_Time.png, id=129, 433
+.62pt x 289.08pt>
+File: ../Experiments/Interesting_Reinforce/Average_Reward_over_Time.png Graphic
+ file (type png)
+<use ../Experiments/Interesting_Reinforce/Average_Reward_over_Time.png>
+Package pdftex.def Info: ../Experiments/Interesting_Reinforce/Average_Reward_ov
+er_Time.png  used on input line 732.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+ [14 <../Experiments/Interesting_Reinforce/Percentage_Optimal_Arm_Pulled_Over_T
+ime.png> <../Experiments/Interesting_Reinforce/Average_Regret_over_Time.png>] [
+15 <../Experiments/Interesting_Reinforce/Mean_Cummulative_Regret_Over_Time.png>
+ <../Experiments/Interesting_Reinforce/Average_Reward_over_Time.png>] (./report
+.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 15170 strings out of 494847
- 310142 string characters out of 6179079
- 322552 words of memory out of 5000000
- 18368 multiletter control sequences out of 15000+600000
+ 15828 strings out of 494847
+ 323521 string characters out of 6179079
+ 332098 words of memory out of 5000000
+ 19002 multiletter control sequences out of 15000+600000
  540956 words of font info for 65 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,12n,39p,10378b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,12n,39p,10378b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -998,11 +1246,11 @@ public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (9 pages, 589501 bytes).
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on report.pdf (15 pages, 970010 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 182 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 191 words of extra memory for PDF output out of 10000 (max. 10000000)
 
