@@ -1,5 +1,7 @@
 import numpy as np
 
+from utils import running_avg_update
+
 class Distribution:
     '''
         This is an abstract class for probability distributions.
@@ -45,3 +47,49 @@ class Beta(Distribution):
             This function returns a sample from the Beta distribution.
         '''
         return np.random.beta(self.alpha, self.beta)
+        
+class Normal(Distribution):
+    '''
+        This class implements the Normal distribution.
+    '''
+    def __init__(self, mean=0, variance=1, data_variance=0.1):
+        self.init_mean = mean
+        self.init_variance = variance
+        self.data_variance = data_variance
+        self.avg_reward = 0
+        self.count = 1
+        
+        super().__init__(mean, variance)
+        
+    def posterior_update(self, reward):
+        '''
+            This method implements the Bayesian posterior update
+            for the Normal Distribution where the variance of the
+            Normal distribution from which data comes is known.
+        '''
+        # print(self.count)
+        self.variance = 1/(1/self.init_variance + self.count/self.data_variance)
+        # print(self.variance)
+        
+        # print(self.avg_reward)
+        # print(reward)
+        self.avg_reward = running_avg_update(
+            self.avg_reward, 
+            reward, 
+            alpha=1/self.count
+        )
+        # print(self.avg_reward)
+        
+        part1 = self.init_mean/self.init_variance
+        part2 = self.avg_reward*self.count/self.data_variance
+        self.mean = self.variance*(part1 + part2)
+        # print(self.mean)
+        # print('-'*10)
+        
+        self.count += 1
+        
+    def sample(self):
+        '''
+            This function returns a sample from the normal distribution.
+        '''
+        return np.random.normal(loc=self.mean, scale=np.sqrt(self.variance))

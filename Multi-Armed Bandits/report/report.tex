@@ -255,7 +255,8 @@
 		\begin{itemize}
 			\item Variable $\epsilon$-Greedy, Variable $\tau$-Softmax, Variable $C$-UCB and Thompson Sampling algorithm seems to perform equally well. This means
 				that any algorithm which optimally trades-off between exploration and exploitation, should perform well i.e. have logarithmic cummalative regret over 
-				time.
+				time. This is an interesting observation as simple algorithms with simple heuristics tend to perform at par with other algorithms with more 
+				sophisticated heuristics.
 			\item Reinforce algorithm doesn't tend to perform that well when compared to its counter-parts. If we look at the plot for the average regret over time
 				for Reinforce algorithm, we find that it intially decreases very slowly. However, later it reaches the same level as that of other algorithms. This
 				nature can be attributed to the fact that the parameters of the algorithm are learned slowly. Thereby, by increasing the learning rate for the 
@@ -392,7 +393,7 @@
 		One thing to note is that we used the same hyperparameters for different number of arms in order to facilitate fair comparison between the performance
 		of the algorithms. The above table and the plots of section \ref{2_bernoulli_comparison}, \ref{5_bernoulli_comparison} and \ref{10_bernoulli_comparison} highlights that the 
 		performance of all the algorithms decreases considerably as the number of arms are increased. However, the relative order of performance between algorithms
-		remain as it is. 
+		remain as it is. We observe similar trends for other metrics as well.
 		
 		
 		\begin{equation}

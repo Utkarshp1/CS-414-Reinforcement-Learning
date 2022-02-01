@@ -89,7 +89,7 @@ class Normal(RewardDistribution):
         '''
         if mean is None or variance is None:
             mean, variance = self._init_params(mean, variance)
-        print(variance)
+        # print(variance)
             
         super().__init__(mean, variance)
         
@@ -108,7 +108,7 @@ class Normal(RewardDistribution):
         return mean, variance
         
     def sample(self):
-        return np.random.normal(loc=self.mean, scale=self.variance)
+        return np.random.normal(loc=self.mean, scale=np.sqrt(self.variance))
         
     def ucb_bonus_term(self, avg_reward, square_reward, counts):
         '''
