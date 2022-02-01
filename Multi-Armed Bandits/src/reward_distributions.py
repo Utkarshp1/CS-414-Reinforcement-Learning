@@ -79,7 +79,7 @@ class Normal(RewardDistribution):
     '''
         This class implements the Normal reward distribution.
     '''
-    def __init__(self, mean=None, variance=0.1):
+    def __init__(self, mean=None, variance=0.01):
         '''
             Arguments:
             ---------

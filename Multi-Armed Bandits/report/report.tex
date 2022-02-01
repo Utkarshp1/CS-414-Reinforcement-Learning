@@ -28,7 +28,40 @@
 \begin{document}
 \author{Utkarsh Prakash \\ \normalsize 180030042}
 \maketitle
+\section{Problem Statement}
+	A multi-armed Bandit is a set of distributions $\{\mathcal{R}_{a} | a \in \mathcal{A}\}$ where $\mathcal{A}$ is a known set of arms and $\mathcal{R}_{a}$ is the
+	distribution of the rewards given the arm $a$. $K$ represents the number of arms being considered in the problem. At each time step, we select an arm 
+	$A_{t} \in \mathcal{A}$ and get a reward $R_{t} \stackrel{}{\sim}
+	\mathcal{R}_{A_{t}}$. Let $q(a)$ denote the expected reward that can be obtained if the arm $a$ is pulled, i.e. $q(a) = \mathbb{E}[R_{t} | A_{t} = a]$. Using,
+	$q(a)$, we can define an optimal arm as the one having the highest value of $q(a)$. Let's denote the value $q(a)$ of this optimal arm as $v_{*}$. We can now 
+	define regret for an action $a$ as $v_{*} - q(a)$. \par
+
+	\noindent %The next paragraph is not indented
+	The goal of the problem is to minimize the cummulative reward over fixed time (T), i.e.
+	\begin{equation}
+	\nonumber
+		\min \sum_{n=1}^{T} (v_{*} - q(A_{n}))
+	\end{equation}
 \section{Experiment Setting}
+	We consider Bernoulli and Normal Reward Distributions for our experiments. We sample the expected reward from a uniform distribution between [0, 1] for both the 
+	reward distributions for each of the arm. We assume that the variance $(\sigma^{2})$ of the Normal reward distribution is known and we experiment with $\sigma^{2} = 0.1^{2}$ and
+	$\sigma^{2} = 1^{2}$. \par
+	
+	\noindent %The next paragraph is not indented
+	For each experiment we run our algorithm for 1000 time steps. This is considered to be a run for an algorithm with a given Bandit problem. In order to compare
+	the performance of the algorithms fairly, in each run we evaluate the performance of the algorithm on the same Bandit problem. We run our algorithms for 1000
+	runs with each run having a different Bandit problem. We use the following metrics for evaluating the performance of the algorithm:
+	
+	\begin{itemize}
+		\item The total regret accumulated over time.
+		\item The regret as a function of time.
+		\item The percentage of plays in which the optimal arm is pulled.
+		\item Average reward as a function of time.
+	\end{itemize}
+	
+	Note that we average these metrics over 1000 runs of the algorithm. 
+	
+\section{Notations}
 \begin{equation}
 	x = \frac{\zeta}{t}
 \label{default_schedule}
