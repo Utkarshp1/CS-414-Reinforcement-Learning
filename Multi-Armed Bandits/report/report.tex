@@ -16,6 +16,11 @@
 \usepackage{subcaption}
 \usepackage{float}
 
+\usepackage{multirow}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{gensymb}
+
 \setlength{\parskip}{1em}
 
 \title{Reinforcement Learning Assignment-2 \\
@@ -24,6 +29,10 @@
 \author{Utkarsh Prakash \\ \normalsize 180030042}
 \maketitle
 \section{Experiment Setting}
+\begin{equation}
+	x = \frac{\zeta}{t}
+\label{default_schedule}
+\end{equation}
 \section{Bernoulli Reward Distribution}
 	\subsection{K=2 arm Problem}
 		\subsubsection{Greedy Algorithm}
@@ -31,8 +40,8 @@
 		In this section, we compare the pure Greedy algorithm, $\epsilon$-greedy with fixed $\epsilon=0.1$ and $\epsilon=0.01$ and variable $\epsilon$ with the 
 		following schedule:
 		\begin{equation}
-		\nonumber
 			\epsilon_{t} = min\{1, \frac{C}{t}\}
+		\label{epsilon_greedy_schedule}
 		\end{equation}
 		where $C=10$ and $t$ is the total number of plays. We observe the following graphs:
 		
@@ -68,13 +77,9 @@
 		\nonumber
 			\pi_{t}(a) = \frac{e^{q_{t}(a)/\tau}}{\sum_{i=1}^{K} e^{q_{t}(a_{i})/\tau}}
 		\end{equation}
-		where $\tau$ is the temperature hyperparameter. We compare the performance of Softmax Policy for $\tau=0.01$, $\tau=10000$ and variable $\tau$ with following
-		schedule:
-		\begin{equation}
-		\nonumber
-			\tau_{t} = \frac{C}{t}
-		\end{equation}
-		where $C=10$. We reduce the $\tau$ overtime to control exploration-exploitation tradeoff. The graph for different metrics are obtained as follows:
+		where $\tau$ is the temperature hyperparameter. We compare the performance of Softmax Policy for $\tau=0.01$, $\tau=10000$ and variable $\tau$ with 
+		schedule as defined in (\ref{default_schedule}) where $\zeta=10$. We reduce the $\tau$ overtime to control exploration-exploitation tradeoff. The graph for 
+		different metrics are obtained as follows:
 		
 		\begin{figure}[H]
 		\graphicspath{ {../Experiments/Bernoulli_2_Softmax/} }
@@ -159,6 +164,236 @@
 		\end{figure}
 		
 		\subsubsection{Reinforce Algorithm}
+		The reinforce algorithm follows the following policy:
+		\begin{equation}
+		\nonumber
+			\pi_{t}(a) = \frac{e^{\theta_{t}(a)}}{\sum_{i=1}^{K} e^{\theta_{t}(a_{i})}}
+		\end{equation}
+		where $\theta_{t}(a)$ are the learnable parameters of the algorithm. These parameters can be learned using Stochastic Gradient Ascent with the following
+		update rule:
+		\begin{equation}
+		\nonumber
+			\theta_{t}(a) = \begin{cases}
+				\theta_{t}(A_{t}) + \alpha (R_{t} - b) (1 - \pi_{t}(A_{t})) & if a = A_{t} \\
+				\theta_{t}(a) + \alpha (R_{t} - b) \pi_{t}(a) & if a \ne A_{t}
+			\end{cases}
+		\end{equation}
+		where $b$ is a baseline and is generally chosen to be the average of all the rewards up through and including time t. The following graphs were obtained
+		with and without baselines:
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Bernoulli_2_Reinforce/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\textbf{Observations:}
+		\begin{itemize}
+			\item We really don't see any difference in performance between the algorithm with and without baselines.
+		\end{itemize}
+		
+		\subsubsection{Comparison of all Algorithms}
+		\label{2_bernoulli_comparison}
+		In this section we compare the performance of all the algorithms for the 2 arm problem. We pick the best performing variation of the algorithm as found
+		in the above experiments for comparison i.e. the following algorithms were used comparison:
+		\begin{itemize}
+			\item Variable $\epsilon$-Greedy where $\epsilon$ decreases according to the schedule defined in (\ref{epsilon_greedy_schedule}) with $C=10$.
+			\item Variable $\tau$-Softmax where $\tau$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Variable $C$-UCB where $C$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Thompson Sampling Algorithm
+			\item Reinforce Algorithm without baseline. This was chosen since we didn't find any considerable improvement in the performance by using baseline.
+		\end{itemize}
+		
+		The results obtained are as follows:
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Bernoulli_2_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Bernoulli_2_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\textbf{Observations:}
+		\begin{itemize}
+			\item Variable $\epsilon$-Greedy, Variable $\tau$-Softmax, Variable $C$-UCB and Thompson Sampling algorithm seems to perform equally well. This means
+				that any algorithm which optimally trades-off between exploration and exploitation, should perform well i.e. have logarithmic cummalative regret over 
+				time.
+			\item Reinforce algorithm doesn't tend to perform that well when compared to its counter-parts. If we look at the plot for the average regret over time
+				for Reinforce algorithm, we find that it intially decreases very slowly. However, later it reaches the same level as that of other algorithms. This
+				nature can be attributed to the fact that the parameters of the algorithm are learned slowly. Thereby, by increasing the learning rate for the 
+				stochastic gradient ascent may fix the problem and the performance can become at par with other algorithms.	
+		\end{itemize}
+		
+	\subsection{K=5 arm Problem}
+		\label{5_bernoulli_comparison}
+		We repeated similar experiments for each of the algorithm as we did for $K=2$ arm case to find the best performing variant of an algorithm. We found the 
+		graphs to be following a similar trend as for $K=2$ case, therefore, we do not include them in our report. We then compared each of these best performing
+		algorithms i.e. we compared the performance of the following algorithms for $K=5$ arms:
+		\begin{itemize}
+			\item Variable $\epsilon$-Greedy where $\epsilon$ decreases according to the schedule defined in (\ref{epsilon_greedy_schedule}) with $C=10$.
+			\item Variable $\tau$-Softmax where $\tau$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Variable $C$-UCB where $C$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Thompson Sampling Algorithm
+			\item Reinforce Algorithm without baseline. This was chosen since we didn't find any considerable improvement in the performance by using baseline.
+		\end{itemize}
+		
+		The results obtained are as follows:
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Bernoulli_5_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Bernoulli_5_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure} 
+		
+		Since, the trends in the graphs are similar to $K=2$ case, we defer the further discussion on the results to the section \ref{bernoulli_comparison}  where we compare
+		the relative performance of the algorithm for different number of arms.
+		
+	\subsection{K=10 arm Problem}
+		\label{10_bernoulli_comparison}
+		We repeated similar experiments for each of the algorithm as we did for $K=2$ arm case to find the best performing variant of an algorithm. We found the 
+		graphs to be following a similar trend as for $K=2$ case, therefore, we do not include them in our report. We then compared each of these best performing
+		algorithms i.e. we compared the performance of the following algorithms for $K=10$ arms:
+		\begin{itemize}
+			\item Variable $\epsilon$-Greedy where $\epsilon$ decreases according to the schedule defined in (\ref{epsilon_greedy_schedule}) with $C=10$.
+			\item Variable $\tau$-Softmax where $\tau$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Variable $C$-UCB where $C$ decreases according to the schedule defined in (\ref{default_schedule}) with $\zeta=10$.
+			\item Thompson Sampling Algorithm
+			\item Reinforce Algorithm without baseline. This was chosen since we didn't find any considerable improvement in the performance by using baseline.
+		\end{itemize}
+		
+		The results obtained are as follows:
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Bernoulli_10_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\graphicspath{ {../Experiments/Bernoulli_10_All/} }
+		\centering
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
+		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \label{fig:test1}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
+		  \captionof{figure}{Average Regret over Time}
+		  \label{fig:test2}
+		\end{minipage}
+		\end{figure} 
+		
+		Since, the trends in the graphs are similar to $K=2$ case, we defer the further discussion on the results to the section \ref{bernoulli_comparison} where we compare
+		the relative performance of the algorithm for different number of arms.
+		
+	\subsection{Comparison of algorithms for different number of arms}
+		\label{bernoulli_comparison}
+		The following table lists the cummalative regret at the end of 1000 plays averaged over 1000 runs:
+		
+		\begin{table}[H]
+		  \begin{tabular}{lSSSS}
+			\toprule
+			\multirow{1}{*}{\textbf{Algorithms}} &
+			  \multicolumn{1}{c}{\textbf{K=2 Arms}} &
+			  \multicolumn{1}{c}{\textbf{K=5 Arms}} &
+			  \multicolumn{1}{c}{\textbf{K=10 Arms}} \\
+			  % & {\textbf{Learned angle}} & {\textbf{Test Accuracy}} & {\textbf{Learned angle}} & {\textbf{Test Accuracy}} \\
+			  \midrule
+			Variable $\epsilon$-Greedy & 12.07 & 28.48 & 39.04  \\
+			Variable $\tau$-Softmax & 7.68 & 19.32 & 28.97   \\
+			Variable $C$-UCB & 8.91 & 20.77 & 28.52   \\
+			Thompson Sampling & 5.87 & 16.89 & 28.58   \\
+			Reinforce Algorithm (without baseline) & 31.88 & 100.61 & 158.87   \\
+			\bottomrule
+		  \end{tabular}
+		  \caption{Comparison of cummalative regret of different algorithms for different number of arms for 1000 plays averaged over 1000 runs.}
+		\end{table}
+		
+		One thing to note is that we used the same hyperparameters for different number of arms in order to facilitate fair comparison between the performance
+		of the algorithms. The above table and the plots of section \ref{2_bernoulli_comparison}, \ref{5_bernoulli_comparison} and \ref{10_bernoulli_comparison} highlights that the 
+		performance of all the algorithms decreases considerably as the number of arms are increased. However, the relative order of performance between algorithms
+		remain as it is. 
+		
 		
 		\begin{equation}
 		\nonumber
