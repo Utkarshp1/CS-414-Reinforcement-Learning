@@ -42,14 +42,14 @@
 	define regret for an action $a$ as $v_{*} - q(a)$. \par
 
 	\noindent %The next paragraph is not indented
-	The goal of the problem is to minimize the cummulative reward over fixed time (T), i.e.
+	The goal of the problem is to minimize the cummulative regret over time (T), i.e.
 	\begin{equation}
 	\nonumber
 		\min \sum_{n=1}^{T} (v_{*} - q(A_{n}))
 	\end{equation}
 \section{Experiment Setting}
-	We consider Bernoulli and Normal reward Distributions for our experiments. We sample the expected reward from a uniform distribution between [0, 1] for both of the  
-	reward distributions for each of the arm. We assume that the variance $(\sigma^{2})$ of the Normal reward distribution is known and we experiment with $\sigma^{2} = 0.1^{2}$. \par
+	We consider Bernoulli and Normal reward Distributions for our experiments. We sample the expected reward for an arm from a uniform distribution between [0, 1] for both of the  
+	reward distributions. We assume that the variance $(\sigma^{2})$ of the Normal reward distribution is known and is equal to $\sigma^{2} = 0.1^{2}$. \par
 	
 	\noindent %The next paragraph is not indented
 	For each experiment we run our algorithm for 1000 time steps. This is considered to be a run for an algorithm with a given Bandit problem. In order to compare
@@ -64,7 +64,7 @@
 	\end{itemize}
 	
 	Note that we average these metrics over 1000 runs of the algorithm. In this report we have included only a subset of the plots obtained from different experiment.
-	This is done because most of the experiments repeated the same pattern and therefore, including them would just be repetition. However, we include all the plots
+	This is done because most of the experiments showed similar patterns and therefore, including them would just be repetition. However, we include all the plots
 	where we observe something interesting and draw meaningful conclusions from them. In order to see all the plots visit the \verb|.ipynb| notebook attached along
 	with this report. \par
 	
@@ -95,8 +95,16 @@
 				
 		\item $\pi_{t}(a)$ represents the probability of picking arm $a$ at time $t$. This is also known as policy.
 	\end{itemize}
+	
+	The way the rest of the report is organized is as follows: In section \ref{bernoulli_reward} we compare the performance of different algorithms on Bernoulli
+	reward distribution. Firstly, for $K=2$ arms, we show the performance of different variants of an algorithm and then with the best performing variant of the
+	algorithm (algorithm with the best set of hyperparameters) we compare different algorithms. Thereafter, we also compare the performance of algorithms for 
+	different number of arms. In section \ref{normal_reward} we compare the performance of different algorithms for Normal reward distribution. We do the comparison
+	on the similar lines as we did for the Bernoulli reward distribution. Finally, in section \ref{interesting_reinforce}, we show a case where reinforce algorithm
+	with baseline outperforms the algorithm without baseline.
 
 \section{Bernoulli Reward Distribution}
+	\label{bernoulli_reward}
 	\subsection{K=2 arm Problem}
 		\subsubsection{Greedy Algorithm}
 		
@@ -128,8 +136,8 @@
 		\textbf{Observations:}
 		\begin{itemize}
 			\item The variable $\epsilon$-Greedy tends to perform better than all of its counter-parts.
-			\item In general, $\epsilon$-Greedy performs better than pure Greedy because of its tendency to explore the arms along with exploting the current 
-				known knowledge.
+			\item In general, $\epsilon$-Greedy performs better than pure Greedy because of its tendency to explore the arms along with exploting our current 
+				knowledge.
 		\end{itemize}
 		
 		
@@ -205,8 +213,8 @@
 		\end{itemize}
 		
 		\subsubsection{Thompson Sampling}
-		In Thompson Sampling, we maintain a Beta distribution prior over $q_{t}(a)$. We sample a value $Q_{t}(a)$ from this Beta distribution for each arm, i.e.
-		$Q_{t}(a) \stackrel{}{\sim} q_(a)$. Now, we select the arm which has the highest value of $Q_{t}(a)$. The results obtained for this algorithm is as 
+		In Thompson Sampling, we maintain a Beta distribution prior over $q(a)$. We sample a value $Q_{t}(a)$ from this Beta distribution for each arm, i.e.
+		$Q_{t}(a) \stackrel{}{\sim} q(a)$. Now, we select the arm which has the highest value of $Q_{t}(a)$. The results obtained for this algorithm is as 
 		follows:
 		
 		\begin{figure}[H]
@@ -303,13 +311,13 @@
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
-		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \captionof{figure}{Mean Cummulative Regret Over Time}
 		  \label{fig:test1}
 		\end{minipage}%
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
-		  \captionof{figure}{Average Regret over Time}
+		  \captionof{figure}{Average Reward over Time}
 		  \label{fig:test2}
 		\end{minipage}
 		\end{figure}
@@ -322,7 +330,7 @@
 				sophisticated heuristics.
 			\item Reinforce algorithm doesn't tend to perform that well when compared to its counter-parts. If we look at the plot for the average regret over time
 				for Reinforce algorithm, we find that it intially decreases very slowly. However, later it reaches the same level as that of other algorithms. This
-				nature can be attributed to the fact that the parameters of the algorithm are learned slowly. Thereby, by increasing the learning rate for the 
+				nature can be attributed to the fact that the parameters of the algorithm are learned slowly. Thereby, increasing the learning rate for the 
 				stochastic gradient ascent may fix the problem and the performance can become at par with other algorithms.	
 		\end{itemize}
 		
@@ -364,13 +372,13 @@
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
-		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \captionof{figure}{Mean Cummulative Regret Over Time}
 		  \label{fig:test1}
 		\end{minipage}%
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
-		  \captionof{figure}{Average Regret over Time}
+		  \captionof{figure}{Average Reward over Time}
 		  \label{fig:test2}
 		\end{minipage}
 		\end{figure} 
@@ -416,13 +424,13 @@
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
-		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \captionof{figure}{Mean Cummulative Regret Over Time}
 		  \label{fig:test1}
 		\end{minipage}%
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
-		  \captionof{figure}{Average Regret over Time}
+		  \captionof{figure}{Average Reward over Time}
 		  \label{fig:test2}
 		\end{minipage}
 		\end{figure} 
@@ -459,6 +467,7 @@
 		remain as it is for a given number of arms. We observe similar trends for other metrics as well.
 		
 \section{Normal Reward Distribution}
+	\label{normal_reward}
 	Most of the algorithms remain exactly the same for the normal reward distribution as well. However, UCB and Thompson Sampling change slightly as described below. \\  \par
 	
 	\noindent %The next paragraph is not indented
@@ -504,7 +513,7 @@
 	\nonumber
 	\begin{gathered}
 		\sigma^2 = \left (\frac{1}{\sigma_{0}^{2}} + \frac{N_{t}(a)}{\sigma_{1}^{2}} \right ) ^{-1}  \\
-		\mu = \sigma_{1}^{2} \left ( \frac{\mu_{0}}{\sigma_{0}^{2}} + \frac{N_{t}(a)Q_{t}(a)}{\sigma_{1}^{2}} \right )
+		\mu = \sigma^{2} \left ( \frac{\mu_{0}}{\sigma_{0}^{2}} + \frac{N_{t}(a)Q_{t}(a)}{\sigma_{1}^{2}} \right )
 	\end{gathered}
 	\end{equation}
 	
@@ -547,13 +556,13 @@
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
-		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \captionof{figure}{Mean Cummulative Regret Over Time}
 		  \label{fig:test1}
 		\end{minipage}%
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
-		  \captionof{figure}{Average Regret over Time}
+		  \captionof{figure}{Average Reward over Time}
 		  \label{fig:test2}
 		\end{minipage}
 		\end{figure}
@@ -561,7 +570,7 @@
 		\textbf{Observations:}
 		\begin{itemize}
 			\item Most of the patterns are the same as Bernoulli reward distributions. However, if we look at the plots for average regret over time and average 
-			reward over time, we find the graph for UCB1-Normal is initially flat and then has spikes. This can be attributed to the fact the way the UCB1-Normal
+			reward over time, we find the graph for UCB1-Normal is initially flat and then has spikes. This can be attributed to the way the UCB1-Normal
 			algorithm is designed. In UCB1-Normal algorithm, we give preference to the arm which has been played less than $\lceil 8 log t \rceil$ times. Therefore,
 			initially in the beginning, we can always find such an arm and we have to play that until that condition is satisfied. This makes the graphs flat in 
 			the beginning. However, one thing to note is that after this point also we are not guaranteed that this condition will never become satisfied again. For
@@ -605,13 +614,13 @@
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
-		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \captionof{figure}{Mean Cummulative Regret Over Time}
 		  \label{fig:test1}
 		\end{minipage}%
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
-		  \captionof{figure}{Average Regret over Time}
+		  \captionof{figure}{Average Reward over Time}
 		  \label{fig:test2}
 		\end{minipage}
 		\end{figure}
@@ -655,13 +664,13 @@
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
-		  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
+		  \captionof{figure}{Mean Cummulative Regret Over Time}
 		  \label{fig:test1}
 		\end{minipage}%
 		\begin{minipage}{.5\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
-		  \captionof{figure}{Average Regret over Time}
+		  \captionof{figure}{Average Reward over Time}
 		  \label{fig:test2}
 		\end{minipage}
 		\end{figure}
@@ -697,9 +706,18 @@
 		experiments with different numbers of arms was done using the same hyperparameters which allows for fair comparison between algorithm.
 
 \section{An Interesting Case: Reinforce Algorithm with Baselines}
+	\label{interesting_reinforce}
 	In all the experiments performed above, we didn't find any considerable difference between reinforce algorithm with and without baselines. The reason was that
 	our reward distribution had mean close to 0 and variance was also close to 0.01. We ran an experiment with $K=10$ arm case with normal reward distribution with
-	expected reward picked uniformly at random between [4, 5] and variance was fixed at 1.0. The following graphs were obtained:
+	expected reward picked uniformly at random between [4, 5] and variance was fixed at 1.0. The results obtained for the experiment is shown in Figure 
+	\ref{percent_optimal}, \ref{avg_regret}, \ref{cummulative_regret} and \ref{avg_reward}.\par
+	
+	\noindent %The next paragraph is not indented 
+	
+	This experiment clearly shows the advantage offered by the reinforce with baseline algorithm over the algorithm without baseline. This boost-up in performance
+	can be attributed to the fact that when we subtract the baseline, we intuitively re-centering our data (rewards) at 0 and since stochastic gradient ascent algorithms
+	tend to perform better when the data is centered at 0, hence, the algorithm with baselines is able to adapt to the new reward levels whereas the one without baseline
+	suffers.
 	
 	\begin{figure}[H]
 	\graphicspath{ {../Experiments/Interesting_Reinforce/} }
@@ -708,13 +726,13 @@
 	  \centering
 	  \includegraphics[width=\linewidth]{Percentage_Optimal_Arm_Pulled_Over_Time.png}
 	  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
-	  \label{fig:test1}
+	  \label{percent_optimal}
 	\end{minipage}%
 	\begin{minipage}{.5\textwidth}
 	  \centering
 	  \includegraphics[width=\linewidth]{Average_Regret_over_Time.png}
 	  \captionof{figure}{Average Regret over Time}
-	  \label{fig:test2}
+	  \label{avg_regret}
 	\end{minipage}
 	\end{figure}
 	
@@ -724,21 +742,18 @@
 	\begin{minipage}{.5\textwidth}
 	  \centering
 	  \includegraphics[width=\linewidth]{Mean_Cummulative_Regret_Over_Time.png}
-	  \captionof{figure}{Percentage Optimal Arm Pulled Over Time}
-	  \label{fig:test1}
+	  \captionof{figure}{Mean Cummulative Regret Over Time}
+	  \label{cummulative_regret}
 	\end{minipage}%
 	\begin{minipage}{.5\textwidth}
 	  \centering
 	  \includegraphics[width=\linewidth]{Average_Reward_over_Time.png}
-	  \captionof{figure}{Average Regret over Time}
-	  \label{fig:test2}
+	  \captionof{figure}{Average Reward over Time}
+	  \label{avg_reward}
 	\end{minipage}
 	\end{figure}
 	
-	This experiment clearly shows the advantage offered by the reinforce with baseline algorithm over the algorithm without baseline. This boost-up in performance
-	can be attributed to the fact that when we subtract the baseline, we intuitively re-centering our data (rewards) and since stochastic gradient ascent algorithms
-	tend to perform better when the data is centered, hence, the algorithm with baselines is able to adapt to the new reward levels whereas the one without baseline
-	suffers.
+	
 		
 		% \begin{equation}
 		% \nonumber

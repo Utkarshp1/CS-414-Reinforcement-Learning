@@ -147,10 +147,59 @@
                 \includegraphics[width=8cm]{Q3_2.png}
                 \end{center}
                 \caption{Graph for $\sqrt(sin(x))exp(-x^{2})$}
-            \end{figure} 
-            
-            We can follow the same procedure as above but by defining $g(X) = \sqrt(sin(X))exp(-X^{2})$. The value of the integral
-            obtained by this method is $0.5737398658239544$. \\
+            \end{figure}
+
+			\textbf{Using Normal Random Variable}\par
+	
+			\noindent %The next paragraph is not indented 
+			Let $X \stackrel{}{\sim} \mathcal{N} (0, \frac{1}{2})$ where $\frac{1}{2}$ is the variance $X$. Now, to apply the above trick of converting integral into
+			expectation of a random variable, we need to confine the density of the above random variable between $[0, \pi]$. To do this we construct a new random 
+			variable Y such that we sample from the distribution of $|X|$ and discard the samples which are greater than $\pi$. Once, we do this we can write the
+			integral as:
+			\begin{equation}
+			\nonumber
+				\int_{0}^{\pi}\sqrt(sin(x))exp(-x^2) \,dx = \lambda \left ( \lim_{N\to\infty} \frac{1}{N}\sum_{i=1}^{N}\sqrt(sin(Y_{i})) \right )
+			\end{equation}
+			where $Y_{i} \stackrel{i.i.d.}{\sim} Y$ 
+            Now, all that remains is to determine the value of $\lambda$. This can be determined if we compute the PDF for $Y$. We know that the PDF of $|X|$ is 
+			defined as follows:
+			\begin{equation}
+			\nonumber
+				f_{x}(|X|) = \frac{2\sqrt{2}}{\pi} exp(-x^2)
+			\end{equation}
+			We know that the PDF of $Y$ is:
+			\begin{equation}
+			\nonumber
+				f_{y}(Y) = \begin{cases}
+				 Cf_{x}(|X|) & if 0 \le X \le \pi \\
+				0 & otherwise
+				\end{cases}
+			\end{equation}
+			where $C$ is a normalizing constant such that
+			\begin{equation}
+			\nonumber
+				\begin{gathered}
+				\int_{0}^{\pi} f_{y}(Y) \,dy = 1 \\
+				\implies \int_{0}^{\pi} Cf_{x}(|X|) \,dx = 1 \\
+				\implies C = \frac{1}{\int_{0}^{\pi} f_{x}(|X|) \,dx}
+				\end{gathered}
+			\end{equation}
+			We can numerically estimate the value of $\int_{0}^{\pi} Cf_{x}(|X|) \,dx$ by using samples from Uniform distribution and applying the procedure as in part(a). 
+			We found this value to be 0.7956. Therefore, $C = 1.2569$. Therefore, 
+			\begin{equation}
+			\nonumber
+				\lambda = \frac{2\sqrt{2}C}{\pi}
+			\end{equation}
+			
+			Using, the technique above we found the value of integral $\int_{0}^{\pi}\sqrt(sin(x))exp(-x^2) \,dx$ to be 0.570899 with just 10 samples from $Y$.
+			
+			\textbf{Using Uniform Random Variable}\par
+	
+			\noindent %The next paragraph is not indented 
+            We can follow the same procedure as in part (a) but by defining $g(X) = \sqrt(sin(X))exp(-X^{2})$. The value of the integral
+            obtained by this method is $0.501713$ with 10 samples from the uniform distribution. \\
+			Clearly, we can see the value obtained from uniform distribution is way far-off from the value obtained from normal distribution. Therefore, we can say 
+			that using Normal Distribution is sample-efficient.
         \end{enumerate}
         \par \par
 	
@@ -245,7 +294,29 @@
 
         \textbf{Analytic Solution} \par
 	
-	    \noindent %The next paragraph is not indented 
+	    \noindent %The next paragraph is not indented
+		Let $\alpha_{i}$ denote the probability of ever-reaching the end state from state $i$. We can create the 
+		following equations recursively:
+		\begin{equation}
+		\nonumber
+		\begin{gathered}
+			\alpha_{0} = \frac{1}{6} \alpha_{1} + \frac{1}{6} \alpha_{2} + \frac{2}{3} \alpha_{0} \\
+			\alpha_{1} = \frac{1}{6} \alpha_{2} + \frac{1}{6} \alpha_{3} + \frac{2}{3} \alpha_{1} \\
+			\alpha_{2} = \frac{1}{6} \alpha_{3} + \frac{1}{6} \alpha_{4} + \frac{2}{3} \alpha_{2} \\
+			\alpha_{3} = \frac{1}{6} \alpha_{4} + \frac{1}{6} \alpha_{5} + \frac{2}{3} \alpha_{3} \\
+			\alpha_{4} = \frac{1}{6} \alpha_{5} + \frac{1}{6} \alpha_{6} + \frac{2}{3} \alpha_{4} \\
+			\alpha_{5} = \frac{1}{6} \alpha_{6} + \frac{1}{6} \alpha_{7} + \frac{2}{3} \alpha_{5} \\
+			\alpha_{6} = \frac{1}{6} \alpha_{7} + \frac{1}{6} \alpha_{8} + \frac{2}{3} \alpha_{6} \\
+			\alpha_{7} = \frac{1}{6} \alpha_{8} + \frac{5}{6} \alpha_{7} \\
+		\end{gathered}
+		\end{equation}
+		We know that $\alpha_{2} = \alpha_{4} = 0$ and $\alpha_{8}=1$. On solving the above set of equations we get $\alpha_{5} = \alpha_{6} = \alpha_{7} = 1$, 
+		$\alpha_{3} = 1/2$, $\alpha_{1} = 1/4$ and $\alpha_{0} = 1/8$. Hence, the required probability is $\alpha_{0} = 0.125$. \par
+	
+	    \noindent %The next paragraph is not indented
+		\textbf{Another Solution} \par
+	
+	    \noindent %The next paragraph is not indented
         Let us consider a random variable $X_{n}$ denoting the state of the player at timestamp $n$. Let $I$ be an indicator random 
         variable such that it takes value of $1$ when the player reaches the end state else it takes the value of $0$. Now, the 
         probability of the player ever reaching the end state is sum of probabilities of it reaching the end state at timestamp 
