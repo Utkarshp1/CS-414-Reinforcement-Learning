@@ -9,6 +9,9 @@ class MDP:
         self.n = trans_prob.shape[0]
         self.best_policy = np.zeros((self.n, 1))
         self.best_value_function = np.zeros((self.n, 1))
+
+        self.num_actions = self.m
+        self.num_states = self.n
         
     def value_iteration(self, epsilon):
         U = np.zeros((self.n, 1))

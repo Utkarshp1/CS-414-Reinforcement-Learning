@@ -1,6 +1,8 @@
 import numpy as np
+
 from utils import generate_MDP
 from MDP import MDP
+from PolicyIteration import PolicyIteration
 
 goal_coordinates = {'positive': (3, 0), 'negative':(3, 1)}
 rewards = {'general': 0.0,
@@ -34,10 +36,15 @@ trans_prob, reward = generate_MDP(4, 3, goal_coordinates, rewards, prob, wall_co
 # print(reward)
 
 grid_world = MDP(trans_prob, reward, 0.9)
-grid_world.value_iteration(1e-10)
-print(grid_world.best_policy)
-print(grid_world.best_value_function)
+# grid_world.value_iteration(1e-10)
+# print(grid_world.best_policy)
+# print(grid_world.best_value_function)
 print('-'*10)
 grid_world.policy_iteration(1e-10)
 print(grid_world.opt_policy)
 print(grid_world.opt_val_func)
+
+pol_iter = PolicyIteration(grid_world, 1e-10)
+pol_iter.run()
+print(pol_iter.opt_policy)
+print(pol_iter.opt_val_func)
