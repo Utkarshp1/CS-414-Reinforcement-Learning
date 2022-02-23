@@ -1,0 +1,14 @@
+RENT: 10
+COST_OF_MOVEMENT: 2
+LOC1_REQUEST_POISSON_PARAM: 3
+LOC2_REQUEST_POISSON_PARAM: 4
+LOC1_RETURN_POISSON_PARAM: 3
+LOC2_RETURN_POISSON_PARAM: 2
+
+# Maximum number of cars allowed at a location
+MAX_CARS: 20
+
+# Maximum number of cars that can be moved from one location to another in one night
+MAX_CARS_MOVEMENT: 5
+
+GAMMA: 0.9
