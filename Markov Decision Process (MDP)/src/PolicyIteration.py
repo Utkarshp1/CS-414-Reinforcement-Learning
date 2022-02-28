@@ -19,6 +19,7 @@ class PolicyIteration:
         '''
         self.mdp = mdp
         self.eps = eps
+        self.history = {'policy': [], 'val_func': []}
 
     def run(self) -> None:
         '''
@@ -28,14 +29,22 @@ class PolicyIteration:
         policy = np.ones((self.mdp.num_states, 1), dtype=np.int32)
         policy_prime = np.zeros((self.mdp.num_states, 1), dtype=np.int32)
         self.num_iters = 0
+        count = 0
 
         while np.any(policy != policy_prime):
+            print(count)
+            count+=1
             self.num_iters += 1
             policy = policy_prime.copy()
 
             val_func_policy = self._policy_evaluation(policy)
+            if count == 1:
+                print(val_func_policy)
             state_act_val_func = self._calc_state_act_val_func(val_func_policy)
             policy_prime = self._policy_improvement(state_act_val_func)
+
+            self.history['policy'].append(policy)
+            self.history['val_func'].append(val_func_policy)
 
         self.opt_val_func = val_func_policy
         self.opt_policy = policy
@@ -82,9 +91,12 @@ class PolicyIteration:
             delta = 0
             trans_prob_policy = self._get_trans_prob_policy(policy)
             reward_func_policy = self._get_reward_func_policy(policy)
+            # print(reward_func_policy)
             val_func = val_func_prime.copy()
+            # print(val_func)
 
             reward = reward_func_policy + self.mdp.gamma*(val_func.T)
+            # print(reward)
             val_func_prime = np.sum(trans_prob_policy*reward, axis=1, 
                 keepdims=True)
 

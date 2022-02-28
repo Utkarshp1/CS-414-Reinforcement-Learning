@@ -9,6 +9,7 @@ import numpy as np
 import seaborn as sns
 from scipy.stats import poisson
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 class JackCarRentalProblem:
     def __init__(self):
@@ -17,8 +18,17 @@ class JackCarRentalProblem:
         self.num_actions = 2*self.config['MAX_CARS_MOVEMENT'] + 1
         self.num_states = (self.config['MAX_CARS'] + 1)**2
 
+        self.gamma = self.config['GAMMA']
+
         self._poisson_cache = {}
-        self._get_transition_dynamics
+        self._get_transition_dynamics()
+
+        # for i in range(self.num_actions):
+        #     print(self.reward[:, :, i])
+        #     print('-'*100)
+
+        if np.any(self.trans_prob > 1):
+            print("hello")
 
     def _get_config(self):
         with open('config.yaml') as config_file:
@@ -37,15 +47,17 @@ class JackCarRentalProblem:
         # [0, ..., MAX_CARS] 
         tmp = self.config['MAX_CARS'] + 1
 
-        for i in range(self.num_states):
+        for i in tqdm(range(self.num_states)):
             for j in range(self.num_actions):
-                action = j - 5
+                # print(f'{i}-{j}')
+                action = j - 2
 
                 # Move Car from Second Location to First Location
                 if action < 0:
                     # State = (MAX_CARS + 1)*num_car_loc1 + num_car_loc2
                     num_car_loc1 = i//tmp
                     num_car_loc2 = i%tmp
+                    # print(num_car_loc2)
 
                     # Movement of car only possible when enough cars
                     # are available
@@ -65,9 +77,16 @@ class JackCarRentalProblem:
                             self.config['COST_OF_MOVEMENT']*action)
                     
                     else:
-                        for k in range(self.num_states):
-                            self.reward[i, k, j], self.trans_prob[i, k, j] = self._get_ret_req_dynamics(
-                                i, k)
+                        self.trans_prob[i, i, j] = 1
+                        self.reward[i, i, j] = -1000000
+
+                        # for k in range(self.num_states):
+                        #     self.reward[i, k, j] = -10000
+                        #     self.trans_prob[i, k, j] = 1
+                        #     # self.reward[i, k, j], self.trans_prob[i, k, j] = self._get_ret_req_dynamics(
+                        #     #     i, k)
+                        # print(i, j, end=" ")
+                        # print(self.reward[i, :, j])
                     
 
                 # Do not move car
@@ -94,9 +113,11 @@ class JackCarRentalProblem:
                         # else:
                         #     prob1 = self._get_net_zero_return_request_prob(
                         #         1, init_num_car_loc1)
-
                         self.reward[i, k, j], self.trans_prob[i, k, j] = self._get_ret_req_dynamics(
-                            i, k) 
+                            i, k)
+                        # if self.reward[i, k, j] != 0.0:
+                        #     print(i, k, end=" ")
+                        #     print(self.reward[i, k, j])
 
                         
 
@@ -127,15 +148,20 @@ class JackCarRentalProblem:
 
                     
                     else:
-                        # self.trans_prob[i, i, j] = 1
+                        self.trans_prob[i, i, j] = 1
+                        self.reward[i, i, j] = -1000000
 
-                        for k in range(self.num_states):
-                            self.reward[i, k, j], self.trans_prob[i, k, j] = self._get_ret_req_dynamics(
-                                i, k) 
+                        # for k in range(self.num_states):
+                        #     self.reward[i, k, j] = -10000
+                        #     self.trans_prob[i, k, j] = 1
+                            # self.reward[i, k, j], self.trans_prob[i, k, j] = self._get_ret_req_dynamics(
+                            #     i, k) 
 
                         # # self.trans_prob[i, dst_state, j] = 1
                         # self.reward[i, :, j] += (
                         #     self.config['COST_OF_MOVEMENT']*action)
+
+        print('Done')
                     
 
     def _get_poisson_prob(self, n, lmb):
@@ -175,7 +201,7 @@ class JackCarRentalProblem:
         exp_reward = 0
         prob = 0
 
-        for num_req_loc1 in range(self.config['MAX_CARS']+1):
+        for num_req_loc1 in range(10+1):
             prob1 = self._get_poisson_prob(
                 num_req_loc1, 
                 self.config['LOC1_REQUEST_POISSON_PARAM']    
@@ -184,7 +210,7 @@ class JackCarRentalProblem:
             # valid rental requests should be less than actual # of cars
             num_req_loc1 = min(num_req_loc1, init_num_car_loc1)
 
-            for num_ret_loc1 in range(self.config['MAX_CARS']+1):
+            for num_ret_loc1 in range(10+1):
                 prob2 = self._get_poisson_prob(
                     num_ret_loc1,
                     self.config['LOC1_RETURN_POISSON_PARAM']
@@ -194,7 +220,7 @@ class JackCarRentalProblem:
                 # than MAX_CARS
                 num_ret_loc1 = min(
                     num_ret_loc1,
-                    self.config['MAX_CARS'] - init_num_car_loc1 + num_req_loc1 - num_ret_loc1
+                    self.config['MAX_CARS'] - init_num_car_loc1 + num_req_loc1
                 )
 
                 # If the condition is true then cannot reach the final 
@@ -203,7 +229,7 @@ class JackCarRentalProblem:
                     (num_ret_loc1 - num_req_loc1)):
                     continue
 
-                for num_req_loc2 in range(self.config['MAX_CARS']+1):
+                for num_req_loc2 in range(10+1):
                     prob3 = self._get_poisson_prob(
                         num_req_loc2, 
                         self.config['LOC2_REQUEST_POISSON_PARAM']    
@@ -212,7 +238,7 @@ class JackCarRentalProblem:
                     # valid rental requests should be less than actual # of cars
                     num_req_loc2 = min(num_req_loc2, init_num_car_loc2)
 
-                    for num_ret_loc2 in range(self.config['MAX_CARS']+1):
+                    for num_ret_loc2 in range(10+1):
                         prob4 = self._get_poisson_prob(
                             num_ret_loc2,
                             self.config['LOC2_RETURN_POISSON_PARAM']
@@ -222,7 +248,7 @@ class JackCarRentalProblem:
                         # than MAX_CARS
                         num_ret_loc2 = min(
                             num_ret_loc2,
-                            self.config['MAX_CARS'] - init_num_car_loc2 + num_req_loc2 - num_ret_loc2
+                            self.config['MAX_CARS'] - init_num_car_loc2 + num_req_loc2
                         )
 
                         # If the condition is true then cannot reach the
@@ -232,7 +258,7 @@ class JackCarRentalProblem:
                             continue
 
                         prob += prob1*prob2*prob3*prob4
-                        exp_reward += (num_req_loc1 + num_req_loc2)*self.config['RENT']
+                        exp_reward += prob1*prob2*prob3*prob4*(num_req_loc1 + num_req_loc2)*self.config['RENT']
 
             return exp_reward, prob
                         
@@ -259,12 +285,13 @@ class JackCarRentalProblem:
         #         prob1 = self._get_net_zero_return_request_prob(
         #             1, init_num_car_loc1)
 
-    def plot(history):
+    def plot(self, history):
         for i, pol in enumerate(history['policy']):
             pol = pol.reshape(
                 (self.config['MAX_CARS'] + 1, self.config['MAX_CARS'] + 1)
             )
+            pol = pol - 5
 
             plt.figure()
-            fig = sns.heatmap(np.flipud(policy), cmap="YlGnBu")
+            fig = sns.heatmap(np.flipud(pol), cmap="YlGnBu")
             plt.savefig(str(i) + '.png')
