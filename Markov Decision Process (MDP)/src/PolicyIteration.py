@@ -27,7 +27,8 @@ class PolicyIteration:
         '''
 
         policy = np.ones((self.mdp.num_states, 1), dtype=np.int32)
-        policy_prime = np.zeros((self.mdp.num_states, 1), dtype=np.int32)
+        # policy_prime = np.zeros((self.mdp.num_states, 1), dtype=np.int32)
+        policy_prime = np.full((self.mdp.num_states, 1), 5, dtype=np.int32)
         self.num_iters = 0
         count = 0
 
@@ -96,6 +97,7 @@ class PolicyIteration:
             # print(val_func)
 
             reward = reward_func_policy + self.mdp.gamma*(val_func.T)
+            # import pdb; pdb.set_trace()
             # print(reward)
             val_func_prime = np.sum(trans_prob_policy*reward, axis=1, 
                 keepdims=True)
