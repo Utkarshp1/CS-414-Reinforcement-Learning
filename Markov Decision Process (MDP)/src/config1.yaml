@@ -1,0 +1,30 @@
+goal_coordinates:
+  # State which gives positive reward (Win state)
+  positive: 
+    - 3 
+    - 0
+  # State which gives negative reward (Loose state)
+  negative: 
+    - 3
+    - 1
+rewards:
+  general: 0.0    # Reward in other states
+  positive: 1     # Reward in Win state
+  negative: -100  # Reward in Loose state
+
+# Prob of reaching the intended state and other states when taken an action
+prob_action:
+  success_prob: 0.8
+  left_prob: 0.1
+  right_prob: 0.1
+
+
+wall_coor: 
+  - 1
+  - 1
+
+grid_size:
+  - 4       # Width of the Grid World
+  - 3       # Height of the Grid World
+
+discount: 0.9

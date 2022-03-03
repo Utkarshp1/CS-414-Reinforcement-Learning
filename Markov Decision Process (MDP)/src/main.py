@@ -17,7 +17,7 @@ prob = {'success_prob': 0.8,
         
 wall_coor = (1, 1)
 
-# trans_prob, reward = generate_MDP(4, 3, goal_coordinates, rewards, prob, wall_coor)
+trans_prob, reward = generate_MDP(4, 3, goal_coordinates, rewards, prob, wall_coor)
 
 # for i in range(4):
 #       print(trans_prob[:, :, i])
@@ -37,7 +37,7 @@ wall_coor = (1, 1)
 # print()
 # print(reward)
 
-# grid_world = MDP(trans_prob, reward, 0.9)
+grid_world = MDP(trans_prob, reward, 0.9)
 # grid_world.value_iteration(1e-10)
 # print(grid_world.best_policy)
 # print(grid_world.best_value_function)
@@ -46,19 +46,19 @@ wall_coor = (1, 1)
 # print(grid_world.opt_policy)
 # print(grid_world.opt_val_func)
 
-# pol_iter = PolicyIteration(grid_world, 1e-10)
-# pol_iter.run()
-# print(pol_iter.opt_policy)
-# print(pol_iter.opt_val_func)
+pol_iter = PolicyIteration(grid_world, 1e-10)
+pol_iter.run()
+print(pol_iter.opt_policy)
+print(pol_iter.opt_val_func)
 
 # val_iter = ValueIteration(grid_world, 1e-10)
 # val_iter.run()
 # print(val_iter.opt_policy)
 # print(val_iter.opt_val_func)
 
-jack = JackCarRentalProblem()
-pol_iter = PolicyIteration(jack, 1e-10)
-pol_iter.run()
-jack.plot(pol_iter.history)
+# jack = JackCarRentalProblem()
+# pol_iter = PolicyIteration(jack, 1e-10)
+# pol_iter.run()
+# jack.plot(pol_iter.history)
 # print(pol_iter.opt_policy)
 # print(pol_iter.opt_val_func)

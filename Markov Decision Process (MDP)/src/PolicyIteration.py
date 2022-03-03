@@ -27,8 +27,8 @@ class PolicyIteration:
         '''
 
         policy = np.ones((self.mdp.num_states, 1), dtype=np.int32)
-        # policy_prime = np.zeros((self.mdp.num_states, 1), dtype=np.int32)
-        policy_prime = np.full((self.mdp.num_states, 1), 5, dtype=np.int32)
+        policy_prime = np.zeros((self.mdp.num_states, 1), dtype=np.int32)
+        # policy_prime = np.full((self.mdp.num_states, 1), 5, dtype=np.int32)
         self.num_iters = 0
         count = 0
 
