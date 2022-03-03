@@ -98,7 +98,7 @@ state. The discount factor $\gamma$ for the MDP is 0.9.
       \hline
       0 & 0 & 0 & \cellcolor{green!25}1 \\ 
       \hline
-      0 & \cellcolor{gray!25}Wall & 0 & \cellcolor{red!25}-100 \\ 
+      0 & \cellcolor{gray!50}Wall & 0 & \cellcolor{red!25}-100 \\ 
       \hline
       0 & 0 & 0 & 0 \\ 
       \hline
@@ -135,16 +135,18 @@ We choose the initial policy for Policy Iteration algorithm to be moving in the 
             \hline
             5.47 & 6.31 & 7.19 & \cellcolor{green!25}8.67 \\ 
             \hline
-            4.80 & \cellcolor{gray!25}Wall & 3.35 & \cellcolor{red!25}-96.67 \\ 
+            4.80 & \cellcolor{gray!50}Wall & 3.35 & \cellcolor{red!25}-96.67 \\ 
             \hline
             4.16 & 3.65 & 3.22 & 1.52 \\ 
             \hline
         \end{tabular}
-        \caption{Optimal Policy}
+        \caption{Optimal Value Function}
     \end{center}
     \end{minipage}%
     \renewcommand{\arraystretch}{1}
 \end{table}
+\noindent %The next paragraph is not indented
+The Policy Iteration algorithm took 3 iterations to converge whereas Value Iteration algorithm took 239 iterations to converge.
 
 \section{Jack's Car Rental Problem}
 \textbf{Example 4.2 from \citecustom{sutton2018reinforcement}}: Jack manages two locations for a nationwide car
@@ -168,17 +170,41 @@ maximum of five cars can be moved from one location to the other in one night. T
 
 \subsection{Policy Iteration}
 The following graphs show the sequence of policies found by the Policy Iteration algorithm starting with the policy that no car
-is moved between the two locations overnight and $\epsilon=1e-4$.
+is moved between the two locations overnight and $\epsilon=1e-4$. The Policy Iteration algorithm took 4 iterations to converge
+to the optimal policy.
 
 \begin{figure}[H]
     \graphicspath{ {../Experiments/JackRentalProblem/PolicyIteration/} }
     \begin{center}
     \includegraphics[width=15cm]{Compact1.png}
     \end{center}
-    \caption{}
+    \caption{The sequence of policies found by the Policy Iteration algorithm along with value function for the final policy. The
+    heatmaps in the first five figure show, for each number of cars at each location at the end of the day, the number of cars moved
+    from first location to the second (negative numbers indicate transfers from the second location to the first). The darkest 
+    colour indicates +5 car transfers and lightest colour indicates -5 car transfers.}
 \end{figure}
 
 \subsection{Value Iteration}
+The following graphs show the sequence of policies found by the Value Iteration algorithm with $\epsilon=1e-4$. The Value Iteration
+algorithm took 121 iterations to converge to the optimal value function.
+\begin{figure}[H]
+    \graphicspath{ {../Experiments/JackRentalProblem/ValueIteration/} }
+    \begin{center}
+    \includegraphics[width=15cm]{Compact.png}
+    \end{center}
+    \caption{The sequence of policies found by the Value Iteration algorithm (only few of them included) along with value function
+    for the final policy. The heatmaps in the first eight figure show, for each number of cars at each location at the end of the
+    day, the number of cars moved from first location to the second (negative numbers indicate transfers from the second location 
+    to the first). The darkest colour indicates +5 car transfers and lightest colour indicates -5 car transfers.}
+\end{figure}
+
+\section{Conclusion}
+\begin{itemize}
+    \item In both the MDPs the Policy Iteration algorithm took fewer steps to converge than the Value Iteration algorithm.
+    \item In the Jack's Car Rental Problem, we note that the Value Iteration algorithm converged very early (around iteration 20) 
+    to the optimal policy but the algorithm continues because it has not converged to the optimal value function.
+    \item In Policy Iteration algorithm, we observe that there is a strict improvement in the policy after every iteration.
+\end{itemize}
 
 
 
