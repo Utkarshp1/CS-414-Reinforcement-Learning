@@ -48,20 +48,21 @@ Similarly, $\mathcal{R}(i, j, a)$ is the reward obtained on transitioning from s
         \begin{algorithmic}
             \State \textbf{input}: MDP $<\mathcal{S}$, $\mathcal{A}$, $\mathcal{P}$ and $\mathcal{R}>$, $\gamma$, $\epsilon$
             \State $\mu \gets [0,..., 0]$ \Comment{Initial Policy}
-            \State $\mu^{'} \gets [0,..., 0]$ \Comment{Temporary for storing present iteration's policy}
-            \While{$\mu^{'} \ne \mu$}
+            \State $\mu' \gets [0,..., 0]$ \Comment{Temporary for storing present iteration's policy}
+            \While{$\mu' \ne \mu$}
+                \State $\mu = \mu'$
                 \State
                 \State \textbf{Policy Evaluation Step}
                 \State $V^{0}_{\mu} \gets [0,..., 0]$
-                \State $\delta \gets 0$
                 \While{$\delta >= \epsilon$}
+                    \State $\delta \gets 0$
                     \State 1. $V^{k+1}_{\mu}(i) = \sum_{j \in \mathcal{S}} P_{ij}(\mu(i)) [\mathcal{R}(i, j, \mu(i)) + \gamma V^{k}_{\mu}(j)] \forall i \in \mathcal{S}$
                     \State 2. $\delta = \max_{i \in \mathcal{S}}(|V^{k+1}_{\mu}(i) - V^{k}_{\mu}(i)|)$
                 \EndWhile
                 \State 
                 \State \textbf{Policy Improvement Step}
-                \State The value of $V^{k+1}_{\mu}$ in the last iteration is $V_{\mu}$. Using this calculate $q_{\mu}(i, a) \forall i \in \mathcal{S}$ and $a \in \mathcal{A}$.
-                \State $\mu^{'}(i) = arg \max_{a \in \mathcal{A}} q_{\mu}(i, a) \forall i \in \mathcal{S}$
+                \State The value of $V^{k+1}_{\mu}$ in the last iteration of Policy Evaluation is $V_{\mu}$. Using this calculate $q_{\mu}(i, a) \forall i \in \mathcal{S}$ and $a \in \mathcal{A}$.
+                \State $\mu'(i) = arg \max_{a \in \mathcal{A}} q_{\mu}(i, a) \forall i \in \mathcal{S}$
             \EndWhile
             \State The policy thus obtained is the optimal policy.
         \end{algorithmic}
@@ -73,8 +74,9 @@ Similarly, $\mathcal{R}(i, j, a)$ is the reward obtained on transitioning from s
     \begin{algorithmic}
         \State \textbf{input}: MDP $<\mathcal{S}$, $\mathcal{A}$, $\mathcal{P}$ and $\mathcal{R}>$, $\gamma$, $\epsilon$
         \State $V^{0} \gets [0,..., 0]$
-        \State $\delta \gets 0$
+
         \While{$\delta >= \epsilon$}
+            \State $\delta \gets 0$
             \State 1. $V^{k+1}(i) = \max_{a \in \mathcal{A}}\sum_{j \in \mathcal{S}} P_{ij}(a) [\mathcal{R}(i, j, a) + \gamma V^{k}(j)] \forall i \in \mathcal{S}$
             \State 2. $\mu(i) = arg \max_{a \in \mathcal{A}}\sum_{j \in \mathcal{S}} P_{ij}(a) [\mathcal{R}(i, j, a) + \gamma V^{k}(j)] \forall i \in \mathcal{S}$
             \State 2. $\delta = \max_{i \in \mathcal{S}}(|V^{k+1}(i) - V^{k}(i)|)$
@@ -84,12 +86,13 @@ Similarly, $\mathcal{R}(i, j, a)$ is the reward obtained on transitioning from s
 \end{algorithm}
 
 \section{Grid World MDP}
-Let's suppose the agent lives in the $4 \times 3$ environment as shown in Table. 1. The reward that the agent gets in a particular
+Let's suppose the agent lives in the $4 \times 3$ environment as shown in Table. \ref{grid_world}. The reward that the agent gets in a particular
 state is also indicated in the figure. In each of the state the agent needs to choose an action from \{Up, Down, Left, Right\}. The
 agent is successful in reaching the state in which itends to reach by taking an action with probability 0.8 and reaches the states
 perpendicular to the direction of action with the remaining probability (with both the perpendicular directions being equally-likely).
-Let's suppose the top-leftmost cell is the origin of a coordinate system. The cell at the coordinate (2, 2) is wall or a prohibited
-state. The discount factor $\gamma$ for the MDP is 0.9. 
+Let's suppose the top-leftmost cell is the origin of a coordinate system. Then according to this coordinates system, the cell at 
+the coordinate (2, 2) is wall or a prohibited state. The discount factor $\gamma$ for the MDP is 0.9. Goal of the MDP is to 
+maximize the expected total discounted reward.
 
 \begin{table}[H]
     \begin{center}
@@ -103,15 +106,17 @@ state. The discount factor $\gamma$ for the MDP is 0.9.
       0 & 0 & 0 & 0 \\ 
       \hline
     \end{tabular}
-    \label{grid_world}
     \caption{Grid World}
+    \label{grid_world}
     \renewcommand{\arraystretch}{1}
 \end{center}
 \end{table}
 	
 \noindent %The next paragraph is not indented
-We run the Policy iteration and Value Iteration algorithms to obtain the optimal policy and optimal value function with $\epsilon = 1e-10$.
-We choose the initial policy for Policy Iteration algorithm to be moving in the Up direction for all the states. The results obtained are shown as below:
+We run the Policy Iteration and Value Iteration algorithm to obtain the optimal policy and optimal value function with $\epsilon = 1e-10$.
+We choose the initial policy for Policy Iteration algorithm to be moving in the Up direction for all the states. The Policy 
+Iteration algorithm took 3 iterations to converge whereas Value Iteration algorithm took 239 iterations to converge. The results 
+obtained are shown as below:
 
 \begin{table}[H]
     \renewcommand{\arraystretch}{2}
@@ -146,7 +151,10 @@ We choose the initial policy for Policy Iteration algorithm to be moving in the 
     \renewcommand{\arraystretch}{1}
 \end{table}
 \noindent %The next paragraph is not indented
-The Policy Iteration algorithm took 3 iterations to converge whereas Value Iteration algorithm took 239 iterations to converge.
+We can intuitively reason out why this should be the optimal policy. When the agent is in states close to the loosing state (state 
+with -100 reward), the optimal action should be such that the probability of reaching the loosing state should be as low as 
+possible (preferably 0). For other states, the optimal action should such that we reach the goal state (state with 1 reward) as soon
+as possible because the present rewards are more valuable than the future rewards.
 
 \section{Jack's Car Rental Problem}
 \textbf{Example 4.2 from \citecustom{sutton2018reinforcement}}: Jack manages two locations for a nationwide car
@@ -161,7 +169,8 @@ n is $\frac{\lambda^{n}}{n!}e^{-\lambda}$, where $\lambda$ is the expected numbe
 the first and second locations and 3 and 2 for returns. To simplify the problem slightly,
 we assume that there can be no more than 20 cars at each location (any additional cars
 are returned to the nationwide company, and thus disappear from the problem) and a
-maximum of five cars can be moved from one location to the other in one night. The discount factor $\gamma$ for the MDP is 0.9.\par
+maximum of five cars can be moved from one location to the other in one night. The discount factor $\gamma$ for the MDP is 0.9.
+Goal of the MDP is to maximize the expected total discounted reward (rent). \par
 	
 \noindent %The next paragraph is not indented 
 \textbf{Time Steps:} Days \\
@@ -169,11 +178,11 @@ maximum of five cars can be moved from one location to the other in one night. T
 \textbf{States:} The state is the number of cars at each location at the end of the day. 
 
 \subsection{Policy Iteration}
-The following graphs show the sequence of policies found by the Policy Iteration algorithm starting with the policy that no car
+Figure \ref{policy_iter_jack_problem} show the sequence of policies found by the Policy Iteration algorithm starting with the policy that no car
 is moved between the two locations overnight and $\epsilon=1e-4$. The Policy Iteration algorithm took 4 iterations to converge
 to the optimal policy.
 
-\begin{figure}[H]
+\begin{figure}
     \graphicspath{ {../Experiments/JackRentalProblem/PolicyIteration/} }
     \begin{center}
     \includegraphics[width=15cm]{Compact1.png}
@@ -182,12 +191,13 @@ to the optimal policy.
     heatmaps in the first five figure show, for each number of cars at each location at the end of the day, the number of cars moved
     from first location to the second (negative numbers indicate transfers from the second location to the first). The darkest 
     colour indicates +5 car transfers and lightest colour indicates -5 car transfers.}
+    \label{policy_iter_jack_problem}
 \end{figure}
 
 \subsection{Value Iteration}
-The following graphs show the sequence of policies found by the Value Iteration algorithm with $\epsilon=1e-4$. The Value Iteration
+Figure \ref{value_iter_jack_problem} show the sequence of policies found by the Value Iteration algorithm with $\epsilon=1e-4$. The Value Iteration
 algorithm took 121 iterations to converge to the optimal value function.
-\begin{figure}[H]
+\begin{figure}
     \graphicspath{ {../Experiments/JackRentalProblem/ValueIteration/} }
     \begin{center}
     \includegraphics[width=15cm]{Compact.png}
@@ -196,7 +206,18 @@ algorithm took 121 iterations to converge to the optimal value function.
     for the final policy. The heatmaps in the first eight figure show, for each number of cars at each location at the end of the
     day, the number of cars moved from first location to the second (negative numbers indicate transfers from the second location 
     to the first). The darkest colour indicates +5 car transfers and lightest colour indicates -5 car transfers.}
+    \label{value_iter_jack_problem}
 \end{figure}
+
+\noindent %The next paragraph is not indented 
+We can intuitively understand why the optimal policy should be as above. In order to maximize our reward, the optimal policy should
+be such the number of cars at each location are approximately equal. This is because, there is a cap on the number of cars
+each location can have and the $\lambda$ (i.e. rate parameter of the Poisson distribution) is almost same for return and request at each
+location. Therefore, we see in Figure \ref{policy_iter_jack_problem} and \ref{value_iter_jack_problem} above, that along the 
+diagonal, where the number of cars at each location is same, the optimal policy is that we don't move any car. On the other hand, 
+along the off-diagonal, where there is a skew in the numbers of cars at a location, the optimal policy is to move cars from one 
+location to the other. 
+
 
 \section{Conclusion}
 \begin{itemize}

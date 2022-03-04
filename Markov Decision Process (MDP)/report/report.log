@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.10.25)  3 MAR 2022 23:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.10.25)  4 MAR 2022 10:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**report
+**report.tex
 (./report.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 7 language(s) loaded.
@@ -752,41 +752,41 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 88.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 90.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 88.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 90.
  [2]
-<../Experiments/JackRentalProblem/PolicyIteration/Compact1.png, id=22, 549.252p
+<../Experiments/JackRentalProblem/PolicyIteration/Compact1.png, id=21, 549.252p
 t x 283.2984pt>
 File: ../Experiments/JackRentalProblem/PolicyIteration/Compact1.png Graphic fil
 e (type png)
 <use ../Experiments/JackRentalProblem/PolicyIteration/Compact1.png>
 Package pdftex.def Info: ../Experiments/JackRentalProblem/PolicyIteration/Compa
-ct1.png  used on input line 179.
+ct1.png  used on input line 188.
 (pdftex.def)             Requested size: 426.79134pt x 220.13324pt.
-<../Experiments/JackRentalProblem/ValueIteration/Compact.png, id=24, 702.9462pt
+<../Experiments/JackRentalProblem/ValueIteration/Compact.png, id=23, 702.9462pt
  x 527.571pt>
 File: ../Experiments/JackRentalProblem/ValueIteration/Compact.png Graphic file 
 (type png)
 <use ../Experiments/JackRentalProblem/ValueIteration/Compact.png>
 Package pdftex.def Info: ../Experiments/JackRentalProblem/ValueIteration/Compac
-t.png  used on input line 193.
+t.png  used on input line 203.
 (pdftex.def)             Requested size: 426.79134pt x 320.31248pt.
- [3 <../Experiments/JackRentalProblem/PolicyIteration/Compact1.png>] (./report.
-bbl [4 <../Experiments/JackRentalProblem/ValueIteration/Compact.png>]) [5] (./r
+ [3] (./report.bbl) [4 <../Experiments/JackRentalProblem/PolicyIteration/Compac
+t1.png>] [5 <../Experiments/JackRentalProblem/ValueIteration/Compact.png>] (./r
 eport.aux) ) 
 Here is how much of TeX's memory you used:
- 16160 strings out of 494847
- 317898 string characters out of 6179079
- 347703 words of memory out of 5000000
- 19338 multiletter control sequences out of 15000+600000
+ 16161 strings out of 494847
+ 317939 string characters out of 6179079
+ 345687 words of memory out of 5000000
+ 19339 multiletter control sequences out of 15000+600000
  541302 words of font info for 66 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,14n,39p,10374b,621s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,14n,39p,10378b,621s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/
@@ -798,13 +798,13 @@ nts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (5 pages, 545622 bytes).
+/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb>
+Output written on report.pdf (5 pages, 540132 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
