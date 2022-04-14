@@ -24,7 +24,7 @@
 \setlength{\parskip}{1em}
 
 \title{Reinforcement Learning Assignment-5 \\
-	\Large Function Approximation, Policy Gradients and Actor-Critic Methods \\}
+	\Large Function Approximation, Policy Gradients and Deep Reinforcement Learning \\}
 \begin{document}
 \author{Utkarsh Prakash \\ \normalsize 180030042}
 \maketitle
@@ -74,32 +74,77 @@
         \subsubsection{Tile Coding}
         We consider a grid of 14 x 14 tiling i.e. each tiling consists of 196 tiles and we have $n=7$ such tilings. The offsets for these tilings were:
         [(0, 0), (0.018, 0.004), (0.036, 0.008), (0.055, 0.013), (0.073, 0.017), (0.092, 0.021), (0.110, 0.025)], where the first and second dimension represents 
-        the position and velocity of the car respectively. We run each of the algorithm for $5,000$ episodes and 
-        average the results over $10$ runs. The $\epsilon$ or the exploration factor in the $\epsilon$-greedy policy is chosen to be $0.8$ initially and is 
+        the position and velocity of the car respectively. We run Q-Learning and SARSA algorithm for $5,000$ episodes and 
+        average the results over $2$ runs. The $\epsilon$ or the exploration factor in the $\epsilon$-greedy policy is chosen to be $0.8$ initially and is 
         decreased by a factor of $0.99$ after every epsiode. This ensures that each of the state is explored infinitely often. The learning rate or the step-size 
         $(\alpha)$ and discount factor $(\gamma)$ are chosen to $0.3/n$, where $n$ is the number of tiling and $0.99$ respectively. We use a constant step-size.
+        The comparison between the average episodic rewards for both the algorithms is shown in Fig. \ref{mountaincar_tile}.
 
         \subsubsection{Radial Basis Function Coding}
+        We represent the state space using 22 x 22 equally spaced RBF centers with a width of $0.000486$ which is the square of half of the distance between two 
+        adjacent centers. We run Q-Learning and SARSA algorithms for $2,000$ episodes and average the results over $2$ runs. The learning rate or the step-size 
+        $(\alpha)$ is set to $0.05$. Rest of the setting is similar to tile coding. 
+
+        \begin{figure}[H]
+            \graphicspath{ {../Experiments/Linear_Function_Approximation/} }
+            \centering
+            \begin{subfigure}{.5\textwidth}
+              \centering
+              \includegraphics[width=\linewidth]{Mountaincar_tile.png}
+              \caption{Tile Coding}
+              \label{mountaincar_tile}
+            \end{subfigure}%
+            \begin{subfigure}{.5\textwidth}
+              \centering
+              \includegraphics[width=\linewidth]{Mountaincar_radial.png}
+              \caption{Radial Basis Function Coding}
+              \label{mountaincar_radial}
+            \end{subfigure}
+            \caption{Average episodic reward as a function of episodes for Mountain Car.}
+            \end{figure}
+        
+        \noindent %The next paragraph is not indented
+        \textbf{Conclusion:} \\
+          Tile coding seems to be performing better than the Radial Basis Function coding 
+          as the former achieves a higher average episodic rewards. Moreover, the learning is 
+          also much stable while using Tile Coding than the RBF coding. The computational cost 
+          of RBF coding is significantly higher than that of Tile coding as the former 
+          requires computation of the costly RBF function as opposed to one-hot calculation in
+          the latter.  
 
     \subsection{CartPole}
         \subsubsection{Tile Coding}
         We consider a hyper-grid of 22 x 22 x 22 x 22 tiling i.e. each tiling consists of $22^{4}$ tiles and we have $n=4$ such tilings. The offsets for these 
         tilings were: [(0, 0, 0, 0), (0.07, 0.23, 0.03, 0.55), (0.14, 0.48, 0.06, 1.11), (0.20, 0.71, 0.08, 1.67)], where the dimensions represent position (x), 
-        velocity (x\_dot), pole angle (theta) and pole angular velocity (theta\_dot) of the cart respectively. We run each of the algorithm for $5,000$ episodes and 
-        average the results over $10$ runs. The $\epsilon$ or the exploration factor in the $\epsilon$-greedy policy is chosen to be $0.8$ initially and is 
+        velocity (x\_dot), pole angle (theta) and pole angular velocity (theta\_dot) of the cart respectively. We run Q-Learning and SARSA algorithm for $1,000$ episodes and 
+        average the results over $2$ runs. The $\epsilon$ or the exploration factor in the $\epsilon$-greedy policy is chosen to be $0.8$ initially and is 
         decreased by a factor of $0.99$ after every epsiode. This ensures that each of the state is explored infinitely often. The learning rate or the step-size 
         $(\alpha)$ and discount factor $(\gamma)$ are chosen to $0.1/n$, where $n$ is the number of tiling and $0.99$ respectively. We use a constant step-size.
+        The comparison between the average episodic rewards for both the algorithms is shown in Fig. \ref{cartpole_tile}.
 
         \subsubsection{Radial Basis Function Coding}
 
-\section{REINFORCE Algorithm}
-    \subsection{Mountain Car}
+        \begin{figure}[H]
+            \graphicspath{ {../Experiments/Linear_Function_Approximation/} }
+            \centering
+            \begin{subfigure}{.5\textwidth}
+              \centering
+              \includegraphics[width=\linewidth]{Cartpole_tile.png}
+              \caption{Tile Coding}
+              \label{cartpole_tile}
+            \end{subfigure}%
+            \begin{subfigure}{.5\textwidth}
+              \centering
+            %   \includegraphics[width=\linewidth]{Mountaincar_radial.png}
+              \caption{Radial Basis Function Coding}
+              \label{mountaincar_radial}
+            \end{subfigure}
+            \caption{Average episodic reward as a function of episodes for CartPole.}
+            \end{figure}
 
-    \subsection{CartPole}
-    We parameterize the policy using a neural network consisting of 4, 16 and 2 units in the input, hidden and output layer. We use ReLU and softmax activation for
-    the first and second layer respectively. We run each of the algorithm for $5,000$ episodes and average the results over $2$ runs. 
-    The learning rate or the step-size $(\alpha)$ used is fixed and equals $0.01$. The discount factor $(\gamma)$ is chosen to be $0.99$. We compare the performance
-    of versions of the REINFORCE algorithms which differ in their policy gradient calculation, as described below:
+\section{REINFORCE Algorithm}
+    In this section we compare the performance
+    of different versions of the REINFORCE algorithms which differ in their policy gradient calculations, as described below:
     \begin{equation}
         \nabla \rho(\theta) = \mathbb{E}_{\tau} \left [\left ( \sum_{t=0}^{T} \nabla_{\theta} log \pi (a_{t} | s_{t}) \right) \left ( \sum_{t=0}^{T} \gamma^{t} R_{t} \right) \right ]
     \label{reinforce}
@@ -109,8 +154,54 @@
         \nabla \rho(\theta) = \mathbb{E}_{\tau} \left [\left ( \sum_{t=0}^{T} \nabla_{\theta} log \pi (a_{t} | s_{t}) \left ( \sum_{k=t+1}^{T} \gamma^{k-t-1} R_{k} \right) \right) \right ]
     \label{reinforce_variance}
     \end{equation}
-    Let's call the version of the algorithm described by \ref{reinforce} and \ref{reinforce_variance} as \textbf{REINFORCE} and \textbf{REINFORCE\_var} respectively. 
+    Let's call the version of the algorithm described by \ref{reinforce} and \ref{reinforce_variance} as \textbf{REINFORCE} and \textbf{REINFORCE\_var} respectively.
+    We benchmark the performance on standard Mountain Car and CartPole tasks. 
 
+    \subsection{Mountain Car}
 
+    \subsection{CartPole}
+    We parameterize the policy using a neural network consisting of 4, 16 and 2 units in the input, hidden and output layer. We use ReLU and softmax activation for
+    the first and second layer respectively. We run each of the algorithm for $5,000$ episodes and average the results over $2$ runs. 
+    The learning rate or the step-size $(\alpha)$ used is fixed and equals $0.01$. The discount factor $(\gamma)$ is chosen to be $0.99$.
+    
+    \begin{figure}[H]
+        \graphicspath{ {../Experiments/Linear_Function_Approximation/} }
+        \begin{center}
+        \includegraphics[width=8cm]{Cartpole_reinforce.png}
+        \end{center}
+        \caption{Average episodic reward as a function of episodes for CartPole problem using different versions of REINFORCE algorithm.}
+        \label{}
+    \end{figure}
+
+    \noindent %The next paragraph is not indented
+    \textbf{Conclusion:} \\
+    The REINFORCE\_var version seems to be performing better than the vanilla version of the REINFORCE algorithm. This can be
+    attributed to the fact that the variance of the policy gradient estimate is lower in the REINFORCE\_var version than the
+    vanilla one, which makes the learning more stable. If we would averaged over a lot of multiple runs, the effect of lower
+    variance would have been more pronounced.
+    
+\section{Deep Reinforcement Learning}
+    In this section we compare the performance of Advantage Actor Critic method (A2C) and Deep Q-Network (DQN) on the standard CartPole task.
+    \subsection{Advantage Actor Critic (A2C)}
+    The Actor network comprises of 1 input, 2 hidden and 1 output layers. The input, first hidden, second hidden and output layer comprises of 4, 64, 64 and 2 units respectively.
+    We use ReLU activation function apart from the last layer where we use softmax activation.
+    The Critic network is same as the Actor network apart from the output layer which consists of 1 output unit and no activation is used. We train both the networks for $5,000$ episodes using Adam 
+    optimizer with a learning rate of $0.001$ and set rest of the hyperparameters to their default values. The discount factor $(\gamma)$ was set to $0.99$.
+
+    \subsection{Deep Q-Network (DQN)}
+    The DQN network consists of 1 input, 2 hidden and 1 output layers. The input, first hidden, second hidden and output layer comprises of 4, 64, 64 and 2 units respectively.
+    We use ReLU activation function apart from the last layer where no activation function is used. We train the network for $5,000$ episodes using Adam optimizer with a learning rate of $0.0005$ 
+    and rest of hyperparameters were set to their default values. The $\epsilon$ or the exploration factor
+    in the $\epsilon$-greedy policy is chosen to be $1.0$ initially and is decreased by a factor of $0.995$ after every epsiode but we ensure that it never falls below $0.01$. This ensures
+    that each of the state is explored infinitely often. The discount factor $(\gamma)$ was set to $0.99$.
+    
+    \begin{figure}[H]
+        \graphicspath{ {../Experiments/Linear_Function_Approximation/} }
+        \begin{center}
+        \includegraphics[width=8cm]{Cartpole_deeprl.png}
+        \end{center}
+        \caption{Average episodic reward as a function of episodes for CartPole problem using different Deep Reinforcement Learning algorithms.}
+        \label{}
+    \end{figure}
 
 \end{document}
