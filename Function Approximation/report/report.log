@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.10.25)  14 APR 2022 13:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.10.25)  14 APR 2022 23:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -296,17 +296,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 22.
 
-(./report.aux
-
-LaTeX Warning: Label `mountaincar_radial' multiply defined.
-
-
-LaTeX Warning: Label `sub@mountaincar_radial' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
-)
+(./report.aux)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
@@ -437,7 +427,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 40.
-<../tmp/mountain_car.jpg, id=68, 602.25pt x 401.5pt>
+<../tmp/mountain_car.jpg, id=72, 602.25pt x 401.5pt>
 File: ../tmp/mountain_car.jpg Graphic file (type jpg)
 <use ../tmp/mountain_car.jpg>
 Package pdftex.def Info: ../tmp/mountain_car.jpg  used on input line 47.
@@ -445,75 +435,81 @@ Package pdftex.def Info: ../tmp/mountain_car.jpg  used on input line 47.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <../tmp/mountain_car.jpg>]
-<../tmp/cartpole.png, id=82, 903.375pt x 903.375pt>
+<../tmp/cartpole.png, id=86, 903.375pt x 903.375pt>
 File: ../tmp/cartpole.png Graphic file (type png)
 <use ../tmp/cartpole.png>
 Package pdftex.def Info: ../tmp/cartpole.png  used on input line 62.
 (pdftex.def)             Requested size: 227.62204pt x 227.62138pt.
-<../Experiments/Linear_Function_Approximation/Mountaincar_tile.png, id=87, 433.
-62pt x 289.08pt>
+ [2 <../tmp/cartpole.png>]
+<../Experiments/Linear_Function_Approximation/Mountaincar_tile.png, id=101, 433
+.62pt x 289.08pt>
 File: ../Experiments/Linear_Function_Approximation/Mountaincar_tile.png Graphic
  file (type png)
 <use ../Experiments/Linear_Function_Approximation/Mountaincar_tile.png>
 Package pdftex.def Info: ../Experiments/Linear_Function_Approximation/Mountainc
-ar_tile.png  used on input line 93.
+ar_tile.png  used on input line 94.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
-<../Experiments/Linear_Function_Approximation/Mountaincar_radial.png, id=88, 43
-3.62pt x 289.08pt>
+<../Experiments/Linear_Function_Approximation/Mountaincar_radial.png, id=102, 4
+33.62pt x 289.08pt>
 File: ../Experiments/Linear_Function_Approximation/Mountaincar_radial.png Graph
 ic file (type png)
 <use ../Experiments/Linear_Function_Approximation/Mountaincar_radial.png>
 Package pdftex.def Info: ../Experiments/Linear_Function_Approximation/Mountainc
-ar_radial.png  used on input line 99.
+ar_radial.png  used on input line 100.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
- [2 <../tmp/cartpole.png>]
-<../Experiments/Linear_Function_Approximation/Cartpole_tile.png, id=99, 433.62p
-t x 289.08pt>
+<../Experiments/Linear_Function_Approximation/Cartpole_tile.png, id=105, 433.62
+pt x 289.08pt>
 File: ../Experiments/Linear_Function_Approximation/Cartpole_tile.png Graphic fi
 le (type png)
 <use ../Experiments/Linear_Function_Approximation/Cartpole_tile.png>
 Package pdftex.def Info: ../Experiments/Linear_Function_Approximation/Cartpole_
-tile.png  used on input line 132.
+tile.png  used on input line 140.
+(pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
+<../Experiments/Linear_Function_Approximation/Cartpole_radial.png, id=106, 433.
+62pt x 289.08pt>
+File: ../Experiments/Linear_Function_Approximation/Cartpole_radial.png Graphic 
+file (type png)
+<use ../Experiments/Linear_Function_Approximation/Cartpole_radial.png>
+Package pdftex.def Info: ../Experiments/Linear_Function_Approximation/Cartpole_
+radial.png  used on input line 146.
 (pdftex.def)             Requested size: 213.39568pt x 142.26357pt.
  [3 <../Experiments/Linear_Function_Approximation/Mountaincar_tile.png> <../Exp
-eriments/Linear_Function_Approximation/Mountaincar_radial.png>]
-<../Experiments/Linear_Function_Approximation/Cartpole_reinforce.png, id=111, 4
+eriments/Linear_Function_Approximation/Mountaincar_radial.png>] [4 <../Experime
+nts/Linear_Function_Approximation/Cartpole_tile.png> <../Experiments/Linear_Fun
+ction_Approximation/Cartpole_radial.png>]
+<../Experiments/Linear_Function_Approximation/Cartpole_reinforce.png, id=131, 4
 33.62pt x 289.08pt>
 File: ../Experiments/Linear_Function_Approximation/Cartpole_reinforce.png Graph
 ic file (type png)
 <use ../Experiments/Linear_Function_Approximation/Cartpole_reinforce.png>
 Package pdftex.def Info: ../Experiments/Linear_Function_Approximation/Cartpole_
-reinforce.png  used on input line 170.
+reinforce.png  used on input line 197.
 (pdftex.def)             Requested size: 227.62204pt x 151.74721pt.
- [4 <../Experiments/Linear_Function_Approximation/Cartpole_tile.png>]
-<../Experiments/Linear_Function_Approximation/Cartpole_deeprl.png, id=123, 433.
+ [5 <../Experiments/Linear_Function_Approximation/Cartpole_reinforce.png>]
+<../Experiments/Linear_Function_Approximation/Cartpole_deeprl.png, id=140, 433.
 62pt x 289.08pt>
 File: ../Experiments/Linear_Function_Approximation/Cartpole_deeprl.png Graphic 
 file (type png)
 <use ../Experiments/Linear_Function_Approximation/Cartpole_deeprl.png>
 Package pdftex.def Info: ../Experiments/Linear_Function_Approximation/Cartpole_
-deeprl.png  used on input line 201.
+deeprl.png  used on input line 230.
 (pdftex.def)             Requested size: 227.62204pt x 151.74721pt.
- [5 <../Experiments/Linear_Function_Approximation/Cartpole_reinforce.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 207.
  [6 <../Experiments/Linear_Function_Approximation/Cartpole_deeprl.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 207.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 252.
+ [7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 252.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 207.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 207.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 252.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 252.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 92BA8951029C69C2C4F4F8E978A2C902;1074.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 207.
+(rerunfilecheck)             Checksum: 732AB301669FD918C42162B8D8C79B5C;1120.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 252.
  ) 
 Here is how much of TeX's memory you used:
- 7944 strings out of 494847
- 118779 string characters out of 6179079
- 206945 words of memory out of 5000000
- 11150 multiletter control sequences out of 15000+600000
+ 7956 strings out of 494847
+ 119186 string characters out of 6179079
+ 208175 words of memory out of 5000000
+ 11159 multiletter control sequences out of 15000+600000
  11802 words of font info for 46 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  36i,8n,41p,262b,477s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -529,10 +525,10 @@ amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (6 pages, 273523 bytes).
+Output written on report.pdf (7 pages, 294980 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 149 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
- 164 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 203 PDF objects out of 1000 (max. 8388607)
+ 162 compressed objects within 2 object streams
+ 33 named destinations out of 1000 (max. 500000)
+ 177 words of extra memory for PDF output out of 10000 (max. 10000000)
 
